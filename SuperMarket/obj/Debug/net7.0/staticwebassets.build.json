@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pF6wViLQ4P2ZxqjbNR9jdAsUpvfc2rOMFfG9gNwW7gQ=",
+  "Hash": "Hp/UuOl3iDRPqT753mHHYpLqWtNAC2rU7kXxqEcQM64=",
   "Source": "SuperMarket",
   "BasePath": "_content/SuperMarket",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\jorge\\source\\repos\\supermarketproyect\\SuperMarket\\wwwroot\\js\\product.js",
+      "SourceId": "SuperMarket",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jorge\\source\\repos\\supermarketproyect\\SuperMarket\\wwwroot\\",
+      "BasePath": "_content/SuperMarket",
+      "RelativePath": "js/product.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\product.js"
     },
     {
       "Identity": "C:\\Users\\jorge\\source\\repos\\supermarketproyect\\SuperMarket\\wwwroot\\js\\site.js",

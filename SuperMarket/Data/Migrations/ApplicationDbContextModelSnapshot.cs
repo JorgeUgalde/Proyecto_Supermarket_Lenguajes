@@ -7,7 +7,7 @@ using SuperMarket.Data;
 
 #nullable disable
 
-namespace SuperMarket.Migrations
+namespace SuperMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -61,6 +61,10 @@ namespace SuperMarket.Migrations
 
                     b.Property<int>("IsActive")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()

@@ -5,7 +5,7 @@
 namespace SuperMarket.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductCategory : Migration
+    public partial class MigracionCompletaObjetos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,6 +30,7 @@ namespace SuperMarket.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BarCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     InStock = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<int>(type: "int", nullable: false),

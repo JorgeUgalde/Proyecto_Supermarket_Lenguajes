@@ -18,4 +18,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Operator\Controllers\" />
+    <Folder Include="Areas\Operator\Data\" />
+    <Folder Include="Areas\Operator\Models\" />
+    <Folder Include="Areas\Operator\Views\" />
+  </ItemGroup>
+
 </Project>

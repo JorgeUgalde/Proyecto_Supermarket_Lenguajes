@@ -11,8 +11,8 @@ using SuperMarket.Data;
 namespace SuperMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230615042828_MigracionCompletaObjetos")]
-    partial class MigracionCompletaObjetos
+    [Migration("20230616003029_AddProductOrderToDB")]
+    partial class AddProductOrderToDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,22 @@ namespace SuperMarket.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("SuperMarket.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("SuperMarket.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -52,9 +68,6 @@ namespace SuperMarket.Data.Migrations
                     b.Property<string>("BarCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -82,20 +95,84 @@ namespace SuperMarket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryID");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.ProductOrder", b =>
+                {
+                    b.Property<int>("IdOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdOrder", "IdProduct");
+
+                    b.HasIndex("IdProduct");
+
+                    b.ToTable("ProductOrders");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Store", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IsOpen")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Store");
                 });
 
             modelBuilder.Entity("SuperMarket.Models.Product", b =>
                 {
                     b.HasOne("SuperMarket.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.ProductOrder", b =>
+                {
+                    b.HasOne("SuperMarket.Models.Order", "Order")
+                        .WithMany("ProductOrder")
+                        .HasForeignKey("IdOrder")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SuperMarket.Models.Product", "Product")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("IdProduct")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Order", b =>
+                {
+                    b.Navigation("ProductOrder");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Product", b =>
+                {
+                    b.Navigation("ProductOrders");
                 });
 #pragma warning restore 612, 618
         }

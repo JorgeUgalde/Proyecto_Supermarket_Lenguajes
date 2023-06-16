@@ -34,8 +34,10 @@ namespace SuperMarket.Models
         public int CategoryId { get; set; }
 
         [Required]
-        [ForeignKey("CategoryID")]
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        public IEnumerable<ProductOrder> ProductOrders { get; set;}
 
     }
 }

@@ -6,7 +6,7 @@ namespace SuperMarket.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IProductRepository Product { get; private set; }
+        public IProductRepository ProductRepository { get; private set; }
 
         public ICategoryRepository Category { get; private set; }
 
@@ -15,7 +15,7 @@ namespace SuperMarket.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            Product = new ProductRepository(_db);
+            ProductRepository = new ProductRepository(_db);
             Category = new CategoryRepository(_db);
         }
 

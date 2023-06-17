@@ -1,11 +1,9 @@
 ﻿@using SuperMarket.Models.ViewModels;
 @model ProductVM
 
-@*La parte del Qasp-action es opcional no requerido porque el Upsert es quien responde *@
 <form method="post" enctype="multipart/form-data" asp-action="Upsert">
 
     <input asp-for="Product.Id" hidden />
-    <input asp-for="Product.PictureUrl" hidden />
 
     <div class="border p-3 mt-4">
         <div class="row pb-2">
@@ -13,11 +11,11 @@
         </div>
 
         <div class="mb-3">
-            <label asp-for="Product.CategoryId" class="p-0"></label>
-            <select asp-for="Product.CategoryId" asp-items="@Model.ProductList" class="form-select">
-                <option disabled selected>---- Select Category ----</option>
+            <label asp-for="Product.CategoryId"></label>
+            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                <option disabled selected>----Select Make----</option>
             </select>
-            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            <span asp-validation-for="Product.CategoryId" class="text-primary"></span>
         </div>
 
         <div class="mb-3">
@@ -28,7 +26,7 @@
 
         <div class="mb-3">
             <label asp-for="Product.Name" class="p-0"></label>
-            <textarea asp-for="Product.Name" rows="3" class="form-control"></textarea>
+            <input asp-for="Product.Name" type="text" class="form-control" />
             <span asp-validation-for="Product.Name" class="text-danger"></span>
         </div>
 
@@ -62,7 +60,6 @@
             <input asp-for="Product.PictureUrl" type="text" class="form-control" />
             <span asp-validation-for="Product.PictureUrl" class="text-danger"></span>
         </div>
-
 
         <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
         <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Return to list</a>

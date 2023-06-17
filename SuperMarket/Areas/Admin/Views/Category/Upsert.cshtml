@@ -1,13 +1,12 @@
 ﻿@model Category
 
-<form method="post" enctype=" multipart /form-data" asp-action="Upsert">
+<form method="post">
 
-    <input asp-for="Id" hidden />
 
     <div class="border p-3 mt-4">
-        <div class="row pb-2">
+        @*<div class="row pb-2">
             <h2 class="text-primary">@(Model.Id == 0 ? "Create" : "Update") Vehicle</h2>
-        </div>
+        </div>*@
 
         <div class="mb-3">
             <label asp-for="Name" class="p-0"></label>

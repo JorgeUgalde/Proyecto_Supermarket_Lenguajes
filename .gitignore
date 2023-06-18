@@ -4,3 +4,8 @@
 *.dylib
 *.vsidx
 *.suo
+*.bin
+*.cache
+
+
+

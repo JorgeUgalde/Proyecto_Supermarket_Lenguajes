@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "GISbTxHT4TjfS2ZaY+XnjhgBjKMKMzy9YSrkNcOHN8Vk7w5INOz2j1txV5h6KEfXSJy3g7F5AYjuJSIpuD5P3w==",
   "success": true,
   "projectFilePath": "C:\\Users\\jorge\\source\\repos\\supermarketproyect\\SuperMarket\\SuperMarket.csproj",
+=======
+  "dgSpecHash": "dLeVaX/mnZUdoXfy0xTja/BfWLwsXqkQGW3dv8nGbwTC2eRpqJ1+hKwnLge6cB0BxhTG3dzgAn9GSHSrVDe/6A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\joshu\\OneDrive\\Desktop\\supermarket-proyect\\SuperMarket\\SuperMarket.csproj",
+>>>>>>> Joshuita
   "expectedPackageFiles": [
     "C:\\Users\\jorge\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\jorge\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

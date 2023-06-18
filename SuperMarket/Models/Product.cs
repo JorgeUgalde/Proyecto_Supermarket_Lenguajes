@@ -11,6 +11,9 @@ namespace SuperMarket.Models
 
         [Required]
         public string BarCode { get; set; }
+        
+        [Required]
+        public string Name { get; set;}
 
         [Required]
         public int Price { get; set; }
@@ -32,8 +35,10 @@ namespace SuperMarket.Models
         public int CategoryId { get; set; }
 
         [Required]
-        [ForeignKey("CategoryID")]
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+        public IEnumerable<ProductOrder> ProductOrders { get; set;}
 
     }
 }

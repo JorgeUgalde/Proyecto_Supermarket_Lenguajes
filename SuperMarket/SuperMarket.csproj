@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Operator\Data\**" />
+    <Compile Remove="Areas\Operator\Models\**" />
+    <Content Remove="Areas\Operator\Data\**" />
+    <Content Remove="Areas\Operator\Models\**" />
+    <EmbeddedResource Remove="Areas\Operator\Data\**" />
+    <EmbeddedResource Remove="Areas\Operator\Models\**" />
+    <None Remove="Areas\Operator\Data\**" />
+    <None Remove="Areas\Operator\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
@@ -16,6 +27,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Operator\Controllers\" />
+    <Folder Include="Areas\Operator\Views\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

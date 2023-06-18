@@ -1,0 +1,85 @@
+﻿@using SuperMarket.Models.ViewModels;
+@model ProductVM
+
+@*La parte del Qasp-action es opcional no requerido porque el Upsert es quien responde *@
+<form method="post" enctype="multipart/form-data" asp-action="Upsert">
+
+    <input asp-for="Product.Id" hidden />
+    <input asp-for="Product.PictureUrl" hidden />
+
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">@(Model.Product.Id == 0 ? "Create" : "Update") Product</h2>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.CategoryId" class="p-0"></label>
+            <select asp-for="Product.CategoryId" asp-items="@Model.ProductList" class="form-select">
+                <option disabled selected>---- Select Category ----</option>
+            </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.BarCode" class="p-0"></label>
+            <input asp-for="Product.BarCode" type="text" class="form-control" />
+            <span asp-validation-for="Product.BarCode" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.Name" class="p-0"></label>
+            <textarea asp-for="Product.Name" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="Product.Name" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.Price" class="p-0"></label>
+            <input asp-for="Product.Price" type="text" class="form-control" />
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="Product.Unit" class="p-0"></label>
+            <input asp-for="Product.Unit" type="text" class="form-control" />
+            <span asp-validation-for="Product.Unit" class="text-danger"></span>
+        </div>  
+
+        <div class="mb-3">
+            <label asp-for="Product.InStock" class="p-0"></label>
+            <input asp-for="Product.InStock" type="text" class="form-control" />
+            <span asp-validation-for="Product.InStock" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.IsActive" class="p-0"></label>
+            <input asp-for="Product.IsActive" type="text" class="form-control" />
+            <span asp-validation-for="Product.IsActive" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Product.PictureUrl" class="p-0"></label>
+            <input asp-for="Product.PictureUrl" type="text" class="form-control" />
+            <span asp-validation-for="Product.PictureUrl" class="text-danger"></span>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Save</button>
+        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Return to list</a>
+
+    </div>
+
+</form>
+
+@section Scripts{
+
+    <script src="https://cdn.tiny.cloud/1/15ppzj17t7o6klw3o2ryc501mp6jdbk1079w8wuxbsupg3u3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
+}

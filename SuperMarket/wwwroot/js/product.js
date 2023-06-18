@@ -7,18 +7,20 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/Admin/Product/GetAll"
+            "url": "https://localhost:7050/Admin/Product/GetAll"
         },
         "columns": [
-            { "data": "model.make.name", "width": "15%" },
-            { "data": "model.name", "width": "15%" },
-            { "data": "year", "width": "15%" },
-            { "data": "price", "width": "15%" },
+            { "data": "barCode", "width": "10%" },
+            { "data": "category.name", "width": "10%" },
+            { "data": "name", "width": "10%" },
+            { "data": "price", "width": "10%" },
+            { "data": "unit", "width": "10%" },
+            { "data": "inStock", "width": "10%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
-                    <a href="/Admin/Vehicle/Upsert/${data}" 
+                    <a href="/Admin/Product/Upsert/${data}" 
                     class="btn btn-primary mx-2">
                         <i class="bi bi-pencil-square"></i> Edit
                     </a>
@@ -28,7 +30,7 @@ function loadDataTable() {
                     </a> 
                     `
                 },
-                "width": "30%"
+                "width": "11%"
             }
 
         ]
@@ -47,7 +49,7 @@ function Delete(_id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            var _url = "/Admin/Vehicle/Delete/" + _id;
+            var _url = "https://localhost:7050/Admin/Product/Delete/" + _id;
             $.ajax({
                 url: _url,
                 type: "DELETE",

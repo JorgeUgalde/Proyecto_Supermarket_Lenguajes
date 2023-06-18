@@ -25,8 +25,7 @@ namespace SuperMarket.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Product> productList = _unitOfWork.Product.GetAll().ToList();
-            return View(productList);
+            return View();
         }
 
 
@@ -85,7 +84,7 @@ namespace SuperMarket.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var ProductList = _unitOfWork.Product.GetAll(includeProperties: "Product,Product.Category");
+            var ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             return Json(new { data = ProductList });
         }
 

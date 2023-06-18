@@ -11,8 +11,7 @@
 
 		public async Task Invoke(HttpContext context)
 		{
-			// Check if maintenance mode is enabled
-			if (IsSupermarketOpen())
+			if (IsSupermarketClosed())
 			{
 				await context.Response.WriteAsync("Supermarket is closed");
 				return;
@@ -21,10 +20,10 @@
 			await _next(context);
 		}
 
-		private bool IsSupermarketOpen()
+		private bool IsSupermarketClosed()
 		{
-			// Implement your own logic here to determine if maintenance mode is enabled
-			return true; // Return true for demo purposes
+			//Logica para determinar si se encuentra abierto
+			return false;
 		}
 	}
 }

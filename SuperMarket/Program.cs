@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SuperMarket.Data;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Repository;
+using SuperMarket;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseMiddleware<SupermarketState>();
+
 
 app.MapControllerRoute(
     name: "default",

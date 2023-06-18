@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SuperMarket.Data;
-using Microsoft.EntityFrameworkCore;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Repository;
 

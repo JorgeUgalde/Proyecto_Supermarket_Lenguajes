@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SuperMarket.Data;
-using Microsoft.EntityFrameworkCore;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Repository;
-using SuperMarket;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,14 +31,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseMiddleware<SupermarketState>();
-
 app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Admin}/{controller=Category}/{action=Index}/{id?}");
+    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

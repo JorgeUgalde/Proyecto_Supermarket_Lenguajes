@@ -9,6 +9,7 @@ namespace SuperMarket.Models.ViewModels
         public Product Product { get; set; }
 
         [ValidateNever]
-        public IEnumerable<SelectListItem> ProductList { get; set; }
+        public IEnumerable<SelectListItem> CategoryList { get;
+            set; }
     }
 }

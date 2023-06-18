@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SuperMarket.Models;
 using SuperMarket.Models.ViewModels;
 using SuperMarket.Repository.Interfaces;
@@ -29,50 +30,49 @@ namespace SuperMarket.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Upsert(int? id)
+        {
+
+            ProductVM ProductVM = new()
+            {
+                Product = new(),
+                CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+            };
+
+            if (id == null || id == 0)
+            {
+                return View(ProductVM);
+            }
+            ProductVM.Product = _unitOfWork.ProductRepository.Get(x => x.Id == id);
+            return View(ProductVM);
+        }
+
 
         [HttpPost]
-        public IActionResult Upsert(ProductVM _productVM, IFormFile? file)
+        public IActionResult Upsert(ProductVM _ProductVM)
         {
             if (ModelState.IsValid)
             {
-
-                string wwwRootPath = _webHostEnvironment.WebRootPath;
-
-                if (file != null)
+                if (_ProductVM.Product.Id == 0)
                 {
-                    string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images\vehicles");
-                    var extension = Path.GetExtension(file.FileName);
-
-
-
-                    if (_productVM.Product.PictureUrl != null) //Para las modificaciones
-                    {
-                        var oldImageUrl = Path.Combine(wwwRootPath, _productVM.Product.PictureUrl);
-                        if (System.IO.File.Exists(oldImageUrl))
-                        {
-                            System.IO.File.Delete(oldImageUrl);
-                        }
-                    }
-
-                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                    {
-                        file.CopyTo(fileStreams);
-                    }
-
-                    _productVM.Product.PictureUrl = @"images\products\" + fileName + extension;
-
+                    _unitOfWork.ProductRepository.Add(_ProductVM.Product);
                 }
-
-                if (_productVM.Product.Id == 0)
-                    _unitOfWork.Product.Add(_productVM.Product);
                 else
-                    _unitOfWork.Product.Update(_productVM.Product);
-
+                {
+                    _unitOfWork.ProductRepository.Update(_ProductVM.Product);
+                }
                 _unitOfWork.Save();
-                TempData["Success"] = "Product saved successfully";
+                TempData["success"] = "Product saved succesfully";
             }
-
+            else
+            {
+                TempData["error"] = "Error saving product";
+            }
             return RedirectToAction("Index");
         }
 
@@ -84,7 +84,7 @@ namespace SuperMarket.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var ProductList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            var ProductList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
             return Json(new { data = ProductList });
         }
 
@@ -96,7 +96,7 @@ namespace SuperMarket.Areas.Admin.Controllers
             string wwwRootPath = _webHostEnvironment.WebRootPath;
 
 
-            var productToDelete = _unitOfWork.Product.Get(u => u.Id == id);
+            var productToDelete = _unitOfWork.ProductRepository.Get(u => u.Id == id);
 
             if (productToDelete == null)
                 return Json(new { success = false, message = "Error while deleting" });
@@ -109,7 +109,7 @@ namespace SuperMarket.Areas.Admin.Controllers
                 System.IO.File.Delete(oldImageUrl);
             }
 
-            _unitOfWork.Product.Remove(productToDelete);
+            _unitOfWork.ProductRepository.Remove(productToDelete);
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Deleted successfully" });

@@ -8,7 +8,6 @@ namespace SuperMarket.Models
         [Key]
         public int Id { get; set; }
 
-
         [Required]
         public string BarCode { get; set; }
         

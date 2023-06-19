@@ -10,18 +10,20 @@ namespace SuperMarket.Repository
 
         public ICategoryRepository Category { get; private set; }
 
-        public IStoreRepository SuperMarket { get; private set; }
-
         public IStoreRepository Store { get; private set; }
 
-    public ApplicationDbContext _db;
+        public IOrderRepository Order { get; private set; }
+
+        public ApplicationDbContext _db;
 
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             ProductRepository = new ProductRepository(_db);
             Category = new CategoryRepository(_db);
-			SuperMarket = new StoreRepository(_db);
+			Store = new StoreRepository(_db);
+            Order = new OrderRepository(_db);
+
         }
 
         public void Save()

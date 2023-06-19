@@ -3,21 +3,43 @@ using Microsoft.EntityFrameworkCore;
 using SuperMarket.Data;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Repository;
-using SuperMarket;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SuperMarket.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.LoginPath = $"/Identity/Account/Login";
+	options.LogoutPath = $"/Identity/Account/Logout";
+	options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowAnyOrigin",
+		builder =>
+		{
+			builder.AllowAnyOrigin()
+				   .AllowAnyMethod()
+				   .AllowAnyHeader();
+		});
+});
 
 builder.Services.AddRazorPages();
 
 
-builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IEmailSender,EmailSender>();
 
 var app = builder.Build();
 
@@ -34,12 +56,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
-app.UseMiddleware<SupermarketState>();
+app.MapRazorPages();
 
+app.UseCors("AllowAnyOrigin");
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

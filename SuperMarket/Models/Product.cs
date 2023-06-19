@@ -37,6 +37,7 @@ namespace SuperMarket.Models
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
+        [NotMapped]
         public IEnumerable<ProductOrder> ProductOrders { get; set;}
 
     }

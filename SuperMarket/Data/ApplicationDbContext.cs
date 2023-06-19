@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SuperMarket.Models;
-using System.Reflection.Metadata;
 
 namespace SuperMarket.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -19,9 +18,9 @@ namespace SuperMarket.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ProductOrder>().HasKey(x => new { x.IdOrder, x.IdProduct});
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<ProductOrder>().HasKey(x => new { x.IdOrder, x.IdProduct});
+        //}
     }
 }

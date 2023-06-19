@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using SuperMarket.Models;
 using SuperMarket.Repository;
 using SuperMarket.Repository.Interfaces;
+using SuperMarket.Utilities;
 using System.Data;
 
 namespace SuperMarket.Areas.Admin.Controllers
 {
-   // [Authorize(Roles = CarDealerRoles.Role_Admin)]
+    [Authorize(Roles = SuperMarketRoles.Role_Admin)]
     [Area("Admin")]
     public class CategoryController : Controller
     {

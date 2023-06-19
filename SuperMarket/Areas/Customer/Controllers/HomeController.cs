@@ -2,9 +2,9 @@
 using SuperMarket.Models;
 using System.Diagnostics;
 
-namespace SuperMarket.Controllers
+namespace SuperMarket.Areas.Customer.Controllers
 {
-    [Area("Admin")]
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SuperMarket.Models;
 using SuperMarket.Models.ViewModels;
 using SuperMarket.Repository.Interfaces;
+using SuperMarket.Utilities;
 
 namespace SuperMarket.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SuperMarketRoles.Role_Admin)]
     [Area("Admin")]
     public class ProductController : Controller
     {

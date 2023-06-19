@@ -9,14 +9,14 @@
         <div class="row pb-2">
             <h2 class="text-primary">@(Model.Product.Id == 0 ? "Create" : "Update") Product</h2>
         </div>
-
+@*
         <div class="mb-3">
             <label asp-for="Product.CategoryId"></label>
             <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
                 <option disabled selected>----Select Make----</option>
             </select>
             <span asp-validation-for="Product.CategoryId" class="text-primary"></span>
-        </div>
+        </div>*@
 
         <div class="mb-3">
             <label asp-for="Product.BarCode" class="p-0"></label>

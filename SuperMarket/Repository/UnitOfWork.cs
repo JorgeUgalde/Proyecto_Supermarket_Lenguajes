@@ -12,7 +12,9 @@ namespace SuperMarket.Repository
 
         public IStoreRepository SuperMarket { get; private set; }
 
-        public ApplicationDbContext _db;
+        public IStoreRepository Store { get; private set; }
+
+    public ApplicationDbContext _db;
 
         public UnitOfWork(ApplicationDbContext db)
         {

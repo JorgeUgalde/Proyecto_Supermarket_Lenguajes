@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuperMarket.Models
 {
@@ -9,5 +11,8 @@ namespace SuperMarket.Models
 
         [Required]
         public string Name { get; set; }
+
+        [NotMapped]
+        public ICollection<Product> Products { get; set; }
     }
 }

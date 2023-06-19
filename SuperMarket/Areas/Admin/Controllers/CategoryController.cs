@@ -5,6 +5,8 @@ using SuperMarket.Repository;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Utilities;
 using System.Data;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace SuperMarket.Areas.Admin.Controllers
 {
@@ -14,13 +16,9 @@ namespace SuperMarket.Areas.Admin.Controllers
     {
 
         private readonly IUnitOfWork _unitOfWork;
-
-        private IWebHostEnvironment _webHostEnvironment;
-
-        public CategoryController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _webHostEnvironment = hostEnvironment;
         }
 
 
@@ -82,6 +80,8 @@ namespace SuperMarket.Areas.Admin.Controllers
         }
 
 
+
+
         #region API
 
         [HttpDelete]
@@ -102,12 +102,34 @@ namespace SuperMarket.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var categoryList = _unitOfWork.Category.GetAll();
-            return Json(new { data = categoryList });
+            var categoryList = _unitOfWork.Category.GetAll(includeProperties: "Products");
+
+            var formattedList = categoryList.Select(category => new
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Products = category.Products.Select(product => new
+                {
+                    Id = product.Id,
+                    BarCode = product.BarCode,
+                    Name = product.Name,
+                    Price = product.Price,
+                    InStock = product.InStock,
+                    IsActive = product.IsActive,
+                    PictureUrl = product.PictureUrl,
+                    Unit = product.Unit
+                })
+            });
+
+            return Json(new { data = formattedList });
         }
+
 
         #endregion
 
 
     }
 }
+
+
+

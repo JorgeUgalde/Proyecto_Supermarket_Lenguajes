@@ -12,8 +12,8 @@ using SuperMarket.Data;
 namespace SuperMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230618211423_AppUserIdentity")]
-    partial class AppUserIdentity
+    [Migration("20230619005243_Relaciones")]
+    partial class Relaciones
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,6 +240,24 @@ namespace SuperMarket.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("SuperMarket.Models.CategoryProduct", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CategoryProducts");
+                });
+
             modelBuilder.Entity("SuperMarket.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -268,9 +286,6 @@ namespace SuperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<int>("InStock")
                         .HasColumnType("int");
 
@@ -294,22 +309,26 @@ namespace SuperMarket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("SuperMarket.Models.ProductOrder", b =>
                 {
-                    b.Property<int>("IdOrder")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdProduct")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.HasIndex("IdOrder");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.HasIndex("IdProduct");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("ProductOrders");
                 });
@@ -331,7 +350,7 @@ namespace SuperMarket.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Store");
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,34 +404,59 @@ namespace SuperMarket.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SuperMarket.Models.Product", b =>
+            modelBuilder.Entity("SuperMarket.Models.CategoryProduct", b =>
                 {
                     b.HasOne("SuperMarket.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("CategoryProducts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SuperMarket.Models.Product", "Product")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SuperMarket.Models.ProductOrder", b =>
                 {
                     b.HasOne("SuperMarket.Models.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("IdOrder")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SuperMarket.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("IdProduct")
+                        .WithMany("ProductOrders")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Category", b =>
+                {
+                    b.Navigation("CategoryProducts");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Order", b =>
+                {
+                    b.Navigation("ProductOrders");
+                });
+
+            modelBuilder.Entity("SuperMarket.Models.Product", b =>
+                {
+                    b.Navigation("CategoryProducts");
+
+                    b.Navigation("ProductOrders");
                 });
 #pragma warning restore 612, 618
         }

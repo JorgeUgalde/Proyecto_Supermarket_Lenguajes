@@ -7,7 +7,7 @@ using System.Data;
 
 namespace SuperMarket.Areas.Operator.Controllers
 {
-    //[Authorize(Roles = SuperMarketRoles.Role_Operator)]
+    [Authorize(Roles = SuperMarketRoles.Role_Operator)]
     [Area("Operator")]
     public class ListOrderController : Controller
     {

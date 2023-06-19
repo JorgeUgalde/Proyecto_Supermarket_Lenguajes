@@ -25,6 +25,7 @@ namespace SuperMarket.Areas.Admin.Controllers
 
 		public ActionResult Index()
 		{
+			
 			return View();
 		}
 

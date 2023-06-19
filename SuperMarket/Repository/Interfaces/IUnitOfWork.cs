@@ -6,6 +6,8 @@
 
         ICategoryRepository Category { get; }
 
+        IStoreRepository Store { get; }
+
         void Save();
     }
 }

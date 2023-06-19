@@ -33,6 +33,7 @@
     <Folder Include="Areas\Operator\Controllers\" />
     <Folder Include="Areas\Operator\Views\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

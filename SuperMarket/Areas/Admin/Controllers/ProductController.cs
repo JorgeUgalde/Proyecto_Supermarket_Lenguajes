@@ -6,6 +6,8 @@ using SuperMarket.Models;
 using SuperMarket.Models.ViewModels;
 using SuperMarket.Repository.Interfaces;
 using SuperMarket.Utilities;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SuperMarket.Areas.Admin.Controllers
 {
@@ -84,14 +86,9 @@ namespace SuperMarket.Areas.Admin.Controllers
         #region API
 
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var ProductList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Category");
-            return Json(new { data = ProductList });
-        }
+       
 
-
+       
 
         [HttpDelete]
         public IActionResult Delete(int? id)

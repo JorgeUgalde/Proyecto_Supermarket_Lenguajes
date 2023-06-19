@@ -12,6 +12,7 @@ namespace SuperMarket.Repository
 
         public IStoreRepository Store { get; private set; }
 
+        public IOrderRepository Order { get; private set; }
 
         public ApplicationDbContext _db;
 
@@ -20,7 +21,7 @@ namespace SuperMarket.Repository
             _db = db;
             ProductRepository = new ProductRepository(_db);
             Category = new CategoryRepository(_db);
-			Store = new StoreRepository(_db);
+			SuperMarket = new StoreRepository(_db);
         }
 
         public void Save()

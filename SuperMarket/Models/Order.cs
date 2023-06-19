@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuperMarket.Models
@@ -11,8 +12,6 @@ namespace SuperMarket.Models
         [Required]
         public int Status { get; set; }
 
-        [NotMapped]
-        public IEnumerable<ProductOrder> ProductOrder { get; set; }
-
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

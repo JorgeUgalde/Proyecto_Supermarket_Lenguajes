@@ -8,6 +8,8 @@
 
         IStoreRepository Store { get; }
 
+        IOrderRepository Order { get; }
+
         void Save();
     }
 }

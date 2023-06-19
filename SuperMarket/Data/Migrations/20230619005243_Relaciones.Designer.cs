@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SuperMarket.Data;
 
@@ -11,9 +12,11 @@ using SuperMarket.Data;
 namespace SuperMarket.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230619005243_Relaciones")]
+    partial class Relaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace SuperMarket.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CategoriesId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("Categories_Of_Products", (string)null);
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -252,6 +240,24 @@ namespace SuperMarket.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("SuperMarket.Models.CategoryProduct", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CategoryProducts");
+                });
+
             modelBuilder.Entity("SuperMarket.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -314,6 +320,9 @@ namespace SuperMarket.Data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -342,21 +351,6 @@ namespace SuperMarket.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stores");
-                });
-
-            modelBuilder.Entity("CategoryProduct", b =>
-                {
-                    b.HasOne("SuperMarket.Models.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SuperMarket.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -410,6 +404,25 @@ namespace SuperMarket.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SuperMarket.Models.CategoryProduct", b =>
+                {
+                    b.HasOne("SuperMarket.Models.Category", "Category")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SuperMarket.Models.Product", "Product")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("SuperMarket.Models.ProductOrder", b =>
                 {
                     b.HasOne("SuperMarket.Models.Order", "Order")
@@ -429,6 +442,11 @@ namespace SuperMarket.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("SuperMarket.Models.Category", b =>
+                {
+                    b.Navigation("CategoryProducts");
+                });
+
             modelBuilder.Entity("SuperMarket.Models.Order", b =>
                 {
                     b.Navigation("ProductOrders");
@@ -436,6 +454,8 @@ namespace SuperMarket.Data.Migrations
 
             modelBuilder.Entity("SuperMarket.Models.Product", b =>
                 {
+                    b.Navigation("CategoryProducts");
+
                     b.Navigation("ProductOrders");
                 });
 #pragma warning restore 612, 618

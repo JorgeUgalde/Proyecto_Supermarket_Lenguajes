@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuperMarket.Models
@@ -10,9 +11,9 @@ namespace SuperMarket.Models
 
         [Required]
         public string BarCode { get; set; }
-        
+
         [Required]
-        public string Name { get; set;}
+        public string Name { get; set; }
 
         [Required]
         public int Price { get; set; }
@@ -21,24 +22,17 @@ namespace SuperMarket.Models
         public int InStock { get; set; }
 
         [Required]
-        [Range(0,1)]
+        [Range(0, 1)]
         public int IsActive { get; set; }
 
-        
+        [Required]
         public string PictureUrl { get; set; }
 
         [Required]
         public string Unit { get; set; }
 
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
-        [Required]
-        [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
-
-        [NotMapped]
-        public IEnumerable<ProductOrder> ProductOrders { get; set;}
-
+        public ICollection<ProductOrder> ProductOrders { get; set; }
     }
 }

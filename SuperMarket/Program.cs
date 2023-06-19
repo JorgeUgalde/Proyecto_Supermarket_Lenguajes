@@ -36,6 +36,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

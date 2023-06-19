@@ -1,0 +1,24 @@
+﻿@model Store
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Supermarket state
+            </h2>
+        </div>
+
+        <div class="mb-3">
+            @if (Model.IsOpen == 0){
+                <label class="p-0">Supermarket is closed</label>
+                <button type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
+            }
+            else
+            {
+                <label class="p-0">Supermarket is Open</label>
+                <button type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
+            }
+        </div>
+    </div>
+
+</div>

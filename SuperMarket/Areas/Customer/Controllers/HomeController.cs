@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SuperMarket.Areas.Admin.Controllers;
 using SuperMarket.Models;
 using System.Diagnostics;
+using static SuperMarket.Areas.Admin.Controllers.StoreController;
 
 namespace SuperMarket.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [SuperMarketState]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

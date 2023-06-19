@@ -11,11 +11,21 @@ function loadDataTable() {
         },
         "columns": [
             { "data": "barCode", "width": "10%" },
-            { "data": "category.name", "width": "10%" },
             { "data": "name", "width": "10%" },
             { "data": "price", "width": "10%" },
             { "data": "unit", "width": "10%" },
-            { "data": "inStock", "width": "10%" },
+            {
+                "data": "categories",
+                "render": function (data) {
+                    var categories = data.map(function (category) {
+                        return category.name;
+                    });
+                    return categories.join(', ');
+                },
+
+                "width": "10%"
+            },
+            
             {
                 "data": "id",
                 "render": function (data) {
@@ -30,7 +40,7 @@ function loadDataTable() {
                     </a> 
                     `
                 },
-                "width": "11%"
+                "width": "12%"
             }
 
         ]

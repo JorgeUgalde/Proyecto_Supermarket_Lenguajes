@@ -85,10 +85,33 @@ namespace SuperMarket.Areas.Admin.Controllers
 
         #region API
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var productList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Categories");
 
-       
+            var formattedList = productList.Select(Product => new
+            {
+                Id = Product.Id,
+                BarCode = Product.BarCode,
+                Name = Product.Name,
+                Price = Product.Price,
+                InStock = Product.InStock,
+                IsActive = Product.IsActive,
+                PictureUrl = Product.PictureUrl,
+                Unit = Product.Unit,
+                Categories = Product.Categories.Select(Category => new
+                {
+                    Id = Category.Id,
+                    Name = Category.Name
+                })
+            });
 
-       
+            return Json(new { data = formattedList });
+        }
+
+
+
 
         [HttpDelete]
         public IActionResult Delete(int? id)

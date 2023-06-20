@@ -83,7 +83,7 @@
 
         <div class="mb-3">
             <label asp-for="Product.PictureUrl" class="p-0"></label>
-            <input asp-for="Product.PictureUrl" type="text" class="form-control" />
+            <input id="uploadBox" name="file" type="file" class="form-control" />
             <span asp-validation-for="Product.PictureUrl" class="text-danger"></span>
         </div>
 

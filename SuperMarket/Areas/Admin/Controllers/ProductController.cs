@@ -59,10 +59,36 @@ namespace SuperMarket.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Upsert(ProductVM _ProductVM)
+        public IActionResult Upsert(ProductVM _ProductVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+
+                if (file != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images\products");
+                    var extension = Path.GetExtension(file.FileName);
+
+                    if (_ProductVM.Product.PictureUrl != null) //Para las modificaciones
+                    {
+                        var oldImageUrl = Path.Combine(wwwRootPath, _ProductVM.Product.PictureUrl);
+                        if (System.IO.File.Exists(oldImageUrl))
+                        {
+                            System.IO.File.Delete(oldImageUrl);
+                        }
+                    }
+
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        file.CopyTo(fileStreams);
+                    }
+
+                    _ProductVM.Product.PictureUrl = @"images\products\" + fileName + extension;
+                }
+     
+
                 if (_ProductVM.Product.Id == 0)
                 {
                     _unitOfWork.ProductRepository.Add(_ProductVM.Product);

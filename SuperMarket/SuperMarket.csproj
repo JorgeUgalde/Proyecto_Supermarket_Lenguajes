@@ -34,6 +34,7 @@
     <Folder Include="Areas\Operator\Views\" />
     <Folder Include="Controllers\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
 </Project>

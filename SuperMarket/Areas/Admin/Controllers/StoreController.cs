@@ -24,11 +24,38 @@ namespace SuperMarket.Areas.Admin.Controllers
 
         public static bool superMarketState { get; private set; }
 
+        public static Store store { get; private set; }
 
 		public StoreController(IUnitOfWork unitOfWork)
 		{
             _unitOfWork = unitOfWork;
+            Store store = _unitOfWork.Store.Get(x => x.Id == 1);
+            
+            if (store.IsOpen == 1)
+            {
+                superMarketState = true;
+            }
+            else
+            {
+                superMarketState = false;
+            }
 		}
+
+        //public static bool GetSuperMarketState()
+        //{
+        //    int superMarketState = GetSuperMarketStateInt(Get_unitOfWork());
+        //    if (superMarketState == 1)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+        private static int GetSuperMarketStateInt(IUnitOfWork _unitOfWork)
+        {
+            store = _unitOfWork.Store.Get(x => x.Id == 1);
+            return store.IsOpen;
+        }
 
 		public ActionResult Index()
 		{
@@ -76,7 +103,7 @@ namespace SuperMarket.Areas.Admin.Controllers
 
             public override void OnActionExecuting(ActionExecutingContext filterContext)
             {
-                bool superMarketOpen = StoreController.superMarketState; // Obtiene el estado actual del supermercado
+                bool superMarketOpen = GetSuperMarketState(); // Obtiene el estado actual del supermercado
 
                 if (!superMarketOpen)
                 {
@@ -90,15 +117,14 @@ namespace SuperMarket.Areas.Admin.Controllers
                 base.OnActionExecuting(filterContext);
             }
 
-            //public static bool GetSuperMarketState(IUnitOfWork _unitOfWork)
-            //{
-            //    Store? store = _unitOfWork.Store.Get(x => x.Id == 1);
-            //    if (store.IsOpen == 1)
-            //    {
-            //        return true;
-            //    }
-            //    return false;
-            //}
+            public static bool GetSuperMarketState()
+            {
+                if (StoreController.superMarketState == true)
+                {
+                    return true;
+                }
+                return false;
+            }
         }
     }
 

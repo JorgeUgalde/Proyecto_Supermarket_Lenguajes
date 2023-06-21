@@ -24,7 +24,17 @@ function loadDataTable() {
                 },
 
                 "width": "10%"
-            },            
+            },
+            //{
+            //    "data": "pictureUrl",
+            //    "render": function (data, type,) {
+            //        if (type === 'display' && data) {
+            //            var extension = data.split('.').pop().toLowerCase();
+            //            return '<img src="images/products/' + data + extension + '" alt="Image">';
+            //        }
+            //        return '';
+            //    }
+            //},
             {
                 "data": "id",
                 "render": function (data) {

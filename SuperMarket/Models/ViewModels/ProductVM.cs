@@ -16,9 +16,5 @@ namespace SuperMarket.Models.ViewModels
         [ValidateNever]
         public IEnumerable<int> SelectedCategories { get; set; }
 
-        public ProductVM()
-        {
-            SelectedCategories = new List<int>();
-        }
     }
 }

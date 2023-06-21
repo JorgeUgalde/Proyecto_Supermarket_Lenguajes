@@ -53,16 +53,46 @@ namespace SuperMarket.Areas.Admin.Controllers
             {
                 return View(ProductVM);
             }
+
+
+            var existingProduct = _unitOfWork.ProductRepository.Get(u => u.Id == id, includeProperties: "Categories");
+
+            IEnumerable<Category> selectedCategories = existingProduct.Categories;
+
+            List<int> selectedCategoryIds = new List<int>();
+
+            foreach (var category in selectedCategories) { 
+            
+                selectedCategoryIds.Add(category.Id);
+            
+            }
+
+            ProductVM.SelectedCategories = selectedCategoryIds;
+
             ProductVM.Product = _unitOfWork.ProductRepository.Get(x => x.Id == id);
             return View(ProductVM);
         }
 
 
+
         [HttpPost]
         public IActionResult Upsert(ProductVM _ProductVM, IFormFile? file)
         {
+
+
+            foreach (var categoria in _ProductVM.SelectedCategories)
+            {
+                // Accede a las propiedades de cada objeto de categoría aquí
+                // Por ejemplo:
+                Console.WriteLine(categoria);
+            }
+
+
             if (ModelState.IsValid)
             {
+
+                IEnumerable<int> selectedCategoryIds = _ProductVM.SelectedCategories;
+
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
 
                 if (file != null)
@@ -87,18 +117,51 @@ namespace SuperMarket.Areas.Admin.Controllers
 
                     _ProductVM.Product.PictureUrl = @"images\products\" + fileName + extension;
                 }
-     
 
                 if (_ProductVM.Product.Id == 0)
                 {
+
+                    // Create a new product
+                    _unitOfWork.ProductRepository.Add(_ProductVM.Product);
+
+                    // Retrieve the selected categories from the database
+                    IEnumerable<Category> selectedCategories = _unitOfWork.Category.GetAll().Where(c => selectedCategoryIds.Contains(c.Id));
+
+                    // Associate the selected categories with the product
+                    _ProductVM.Product.Categories = selectedCategories.ToList();
+
+                    // Add the product to the corresponding category's Products collection
+                    foreach (var category in selectedCategories)
+                    {
+                        category.Products.Add(_ProductVM.Product);
+                    }
+
+                    _unitOfWork.Save();
+                    TempData["success"] = "Product created successfully";
+
                     _unitOfWork.ProductRepository.Add(_ProductVM.Product);
                 }
                 else
                 {
-                    _unitOfWork.ProductRepository.Update(_ProductVM.Product);
+
+                    // Update an existing product
+                    var existingProduct = _unitOfWork.ProductRepository.Get(u => u.Id == _ProductVM.Product.Id, includeProperties: "Categories");
+
+                    // Retrieve the selected categories from the database
+                    IEnumerable<Category> selectedCategories = _unitOfWork.Category.GetAll().Where(c => selectedCategoryIds.Contains(c.Id));
+
+                    // Associate the selected categories with the product
+                    existingProduct.Categories.Clear(); // Remove all existing categories
+                    foreach (var category in selectedCategories)
+                    {
+                        existingProduct.Categories.Add(category); // Add the selected categories
+                    }
+
+                    _unitOfWork.ProductRepository.Update(existingProduct);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Product updated successfully";
                 }
-                _unitOfWork.Save();
-                TempData["success"] = "Product saved succesfully";
+
             }
             else
             {
@@ -106,8 +169,6 @@ namespace SuperMarket.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
 
         #region API
 

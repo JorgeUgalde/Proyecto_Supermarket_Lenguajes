@@ -13,6 +13,6 @@ namespace SuperMarket.Models
         public string Name { get; set; }
 
         [NotMapped]
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

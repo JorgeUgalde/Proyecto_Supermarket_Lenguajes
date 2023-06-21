@@ -24,9 +24,7 @@ function loadDataTable() {
                 },
 
                 "width": "10%"
-            },
-            { "data": "pictureUrl", "height": "160px", "width": "286px" },
-            
+            },            
             {
                 "data": "id",
                 "render": function (data) {

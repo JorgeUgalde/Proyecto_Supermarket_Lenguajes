@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using System.Globalization;
+@model IEnumerable<Product>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row pb-3">
+
+    @foreach(var product in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+            <div class="card" style="width:18rem; height:18rem">
+                <img class="card-img-top" style="height:160px;width:286px" src="~/@product.PictureUrl">
+                <div class="card-block">
+                    <p class="card-title h5 text-primary"> @product.Name</p>
+                    <p class="card-title text-info">@product.Price.ToString("C", CultureInfo.GetCultureInfo("es-cr"))</p>
+                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary form-control"> Details </a>
+                </div>
+            </div>
+        </div>
+    }
+
+
+  
+    
 </div>
+
+

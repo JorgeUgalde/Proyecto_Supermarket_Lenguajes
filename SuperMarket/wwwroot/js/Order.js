@@ -43,6 +43,9 @@ function loadDataTable() {
                 },
                 "width": "30%"
             }
-        ]
+        ],
+        "language": {
+            "search": "STATUS:"
+        }
     });
 }

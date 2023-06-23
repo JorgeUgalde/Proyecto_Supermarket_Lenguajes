@@ -2,14 +2,13 @@
 
 $(document).ready(function () {
     loadDataTable();
+    console.log("sirve")
 });
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "https://localhost:7050/operator/listOrder/GetAll",
-            "dataSrc": "data"
-
+            "url": "https://localhost:7050/operator/listOrder/GetAll"
         },
         "columns": [
             { "data": "id", "width": "15%" },

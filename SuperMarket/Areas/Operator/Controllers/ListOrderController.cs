@@ -39,7 +39,8 @@ namespace SuperMarket.Areas.Operator.Controllers
                 ProductOrders = Order.ProductOrders.Select(productOrder => new
                 {
                     ProductId = productOrder.ProductId,
-                    OrderId = productOrder.OrderId
+                    OrderId = productOrder.OrderId,
+                    Quantity = productOrder.Quantity
                     
                 })
             });

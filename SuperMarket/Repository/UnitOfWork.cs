@@ -22,6 +22,7 @@ namespace SuperMarket.Repository
             ProductRepository = new ProductRepository(_db);
             Category = new CategoryRepository(_db);
 			Store = new StoreRepository(_db);
+            Order = new OrderRepository(_db);
         }
 
         public void Save()

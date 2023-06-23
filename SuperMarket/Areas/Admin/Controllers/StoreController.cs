@@ -41,15 +41,15 @@ namespace SuperMarket.Areas.Admin.Controllers
             }
 		}
 
-        public static bool GetSuperMarketState()
-        {
-            //int superMarketState = GetSuperMarketStateInt(Get_unitOfWork());
-            if (superMarketState == 1)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public static bool GetSuperMarketState()
+        //{
+        //    //int superMarketState = GetSuperMarketStateInt(Get_unitOfWork());
+        //    if (superMarketState == 1)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         private static int GetSuperMarketStateInt(IUnitOfWork _unitOfWork)
         {

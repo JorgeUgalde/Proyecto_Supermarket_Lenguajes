@@ -16,5 +16,7 @@ namespace SuperMarket.Models
         public Order Order { get; set; }
 
         public int Quantity { get; set; }
+
+        public double TotalAmount { get; set; }
     }
 }

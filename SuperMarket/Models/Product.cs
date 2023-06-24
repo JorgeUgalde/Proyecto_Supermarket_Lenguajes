@@ -16,7 +16,7 @@ namespace SuperMarket.Models
         public string Name { get; set; }
 
         [Required]
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [Required]
         public int InStock { get; set; }

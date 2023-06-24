@@ -22,7 +22,7 @@
 @section Scripts{
     <script src="~/js/order.js"></script>
 }*@
-
+@using SuperMarket.Utilities;
 
 <div class="container">
     <div class="row pt-4">
@@ -36,9 +36,9 @@
             <label for="statusFilter">FILTER BY STATUS:</label>
             <select id="statusFilter" class="form-control">
                 <option value="">All</option>
-                <option value="1">New</option>
-                <option value="2">In Progress</option>
-                <option value="3">Finished</option>
+                <option value="@OrderStatus.New">New</option>
+                <option value="@OrderStatus.InProgress">In Progress</option>
+                <option value="@OrderStatus.Finished">Finished</option>
             </select>
         </div>
         <div>
@@ -61,5 +61,9 @@
         #statusFilter option {
             color: black;
         }
+
     </style>
 }
+
+
+

@@ -2,10 +2,12 @@
 using SuperMarket.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using SuperMarket.Areas.Admin.Controllers;
 
 namespace SuperMarket.Areas.Customer.Controllers
 {
     [Area("Customer")]
+    [TypeFilter(typeof(SuperMarketStateAttribute))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

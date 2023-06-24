@@ -5,6 +5,7 @@ using SuperMarket.Repository.Interfaces;
 using SuperMarket.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SuperMarket.Utilities;
+using SuperMarket.Areas.Admin.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +41,8 @@ builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<SuperMarketStateAttribute>();
 
 builder.Services.AddScoped<IEmailSender,EmailSender>();
 

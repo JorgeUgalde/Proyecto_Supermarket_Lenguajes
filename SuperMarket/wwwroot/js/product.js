@@ -25,16 +25,13 @@ function loadDataTable() {
 
                 "width": "10%"
             },
-            //{
-            //    "data": "pictureUrl",
-            //    "render": function (data, type,) {
-            //        if (type === 'display' && data) {
-            //            var extension = data.split('.').pop().toLowerCase();
-            //            return '<img src="images/products/' + data + extension + '" alt="Image">';
-            //        }
-            //        return '';
-            //    }
-            //},
+            {
+                "data": "pictureUrl",
+                "render": function (data) {
+                    return '<img src="' + data + '" alt="Product Image" style="width: 150px; height: 150;">';
+                },
+                "width": "15%"
+            },
             {
                 "data": "id",
                 "render": function (data) {

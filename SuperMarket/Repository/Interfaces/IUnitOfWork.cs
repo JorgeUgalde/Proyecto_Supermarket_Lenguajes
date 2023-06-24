@@ -9,6 +9,7 @@
         IStoreRepository Store { get; }
 
         IOrderRepository Order { get; }
+        IListOrderRepository ListOrder { get; }
 
         void Save();
     }

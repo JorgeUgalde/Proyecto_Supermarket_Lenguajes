@@ -176,6 +176,15 @@ namespace SuperMarket.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             var productList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Categories");
+            string baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            foreach (var item in productList)
+            {
+                if (item.PictureUrl != null)
+                {
+                    item.PictureUrl = $"{baseUrl}/{item.PictureUrl}";
+                }
+            }
 
             var formattedList = productList.Select(Product => new
             {

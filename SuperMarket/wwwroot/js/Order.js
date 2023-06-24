@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     loadDataTable();
+    setupStatusFilter();
    
 });
 
@@ -10,25 +11,26 @@ function loadDataTable() {
         "ajax": {
             "url": "https://localhost:7050/operator/listOrder/GetAll"
         },
+        "dom": 'lrtip',
         "columns": [
-            { "data": "id", "width": "15%", "searchable":false },
+            { "data": "id", "width": "33.3%", "searchable":false },
             {
                 "data": "status",
-                "width": "15%",
+                "width": "33.3%",
                 "render": function (data) {
                     if (data === 1) {
                         return "New";
                     } else if (data === 2) {
                         return "In Progress";
                     } else if (data === 3) {
-                        return "Finish";
+                        return "Finished";
                     } else {
                         return "Unknown";
                     }
                 }
             },
             {
-                "data": "productOrders",
+                "data": "id",
                 "render": function (data) {
                     if (data !== 3) {
                         return `
@@ -41,11 +43,26 @@ function loadDataTable() {
                         return "";
                     }
                 },
-                "width": "30%"
+                "width": "33.3%",
             }
-        ],
-        "language": {
-            "search": "STATUS:"
+        ]
+    });
+}
+
+
+function setupStatusFilter() {
+    $('#statusFilter').on('change', function () {
+
+        var data = $(this).val();
+        var status = "";
+
+        if (data == 1) {
+            status = "New";
+        } else if (data == 2) {
+            status = "In Progress";
+        } else if (data == 3) {
+            status = "Finished";
         }
+       dataTable.column(1).search(status).draw();
     });
 }

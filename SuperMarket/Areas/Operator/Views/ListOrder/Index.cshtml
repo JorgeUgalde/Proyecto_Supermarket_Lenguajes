@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿@*<div class="container">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
@@ -21,4 +21,45 @@
 
 @section Scripts{
     <script src="~/js/order.js"></script>
+}*@
+
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                List of orders
+            </h2>
+        </div>
+
+        <div class="col-6">
+            <label for="statusFilter">FILTER BY STATUS:</label>
+            <select id="statusFilter" class="form-control">
+                <option value="">All</option>
+                <option value="1">New</option>
+                <option value="2">In Progress</option>
+                <option value="3">Finished</option>
+            </select>
+        </div>
+        <div>
+            <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/order.js"></script>
+    <style>
+        #statusFilter option {
+            color: black;
+        }
+    </style>
 }

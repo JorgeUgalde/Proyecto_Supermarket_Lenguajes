@@ -2,70 +2,25 @@
 
 <div class="container">
     <div class="row pt-4">
-        <div class="col-6">
-            <h2 class="text-primary">
-                Supermarket state
-            </h2>
-        </div>
-
-        <div class="mb-3">
-            @if (Model.IsOpen == 0){
-                <label class="p-0">Supermarket is closed</label>
-                <button type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
-            }
-            else
-            {
-                <label class="p-0">Supermarket is Open</label>
-                <button type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
-            }
-        </div>
-    </div>
-</div>
-
-<div class="card i" style="max-width: 20rem;">
-    <div class="card-header">State of the supermarket</div>
-    <div class="card-body">
-        <h4 class="card-title">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h4>
-        <p class="card-text">Change the state of the supermarket by clicking the button.</p>
-        @if (Model.IsOpen == 0)
-        {
-            <button type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
-        }
-        else
-        {
-            <button type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
-        }
-    </div>
-</div>
-
-
-<div class="container py-14 py-md-16">
-    <div class="row">
-        <div class="col-xl-10 mx-auto">
-            <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://images.unsplash.com/photo-1633259584604-afdc243122ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h2>
-                    <a href="#" class="btn btn-white rounded-pill mb-0 text-nowrap">Join Us</a>
-                </div>
-                <!--/.card-body -->
-            </div>
-            <!--/.card -->
-        </div>
-        <!-- /column -->
-    </div>
-    <!-- /.row -->
-</div>
-
-
-<!-- This script got from frontendfreecode.com -->
-<div class="container px-4 py-5" id="custom-cards">
-    <div class="row row-cols-3 row-cols-lg-3 align-items-stretch g-4 py-5">
-        <div class="col">
-            <div class=" card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('http://media.istockphoto.com/id/1386836234/vector/abstract-blurred-colorful-background.jpg?s=612x612&w=0&k=20&c=CWwGk1voXayjM9eYHZXMtfWk5i2P4xSnXSnzTiyz5xc=');">
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h2>
-                    <ul class="d-flex list-unstyled mt-auto">
-                    </ul>
+        <div class="container py-14 py-md-16">
+            <div class="row">
+                <div class="col-xl-10 mx-auto">
+                    <div class="row pb-2">
+                        <h2 class="text-primary">Supermarket state</h2>
+                    </div>
+                    <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://images.unsplash.com/photo-1633259584604-afdc243122ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');">
+                        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h2>
+                            @if (Model.IsOpen == 0)
+                            {
+                                <button class="btn btn-lg btn-primary" type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-lg btn-primary" type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

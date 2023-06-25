@@ -19,4 +19,33 @@
     }
 </div>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="modalTest" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5>Please enter your name:</h5>
+                    <input type="text" id="nameInput">
+                    <button id="submitBtn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            alert("Hola");
+            $('#modalTest').modal('show');
+        });
+    </script>
+</body>
+</html>
+
 

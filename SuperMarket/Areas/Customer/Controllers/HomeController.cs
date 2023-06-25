@@ -45,6 +45,26 @@ namespace SuperMarket.Areas.Customer.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public IActionResult AddToCart(int id)
+        //{
+
+        //    string cadena = HttpContext.Current.Request.Url.AbsoluteUri;
+        //    string[] Separado = cadena.Split('/');
+        //    string Final = Separado[Separado.Length - 1];
+
+
+        //    //Product Product = _unitOfWork.ProductRepository.Get(v => v.Id == id);
+
+        //    //if (Product == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+
+        //    return View("Index");
+        //}
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -9,7 +9,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/operator/listOrder/GetAll"
+            "url": "/Operator/listOrder/GetAll"
         },
         "dom": 'lrtip',
         "columns": [

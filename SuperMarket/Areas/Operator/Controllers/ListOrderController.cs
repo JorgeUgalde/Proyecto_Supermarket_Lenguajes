@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace SuperMarket.Areas.Operator.Controllers
 {
-    //[Authorize(Roles = SuperMarketRoles.Role_Operator)]
+    [Authorize(Roles = SuperMarketRoles.Role_Operator)]
     [Area("Operator")]
     public class ListOrderController : Controller
     {
@@ -23,37 +23,6 @@ namespace SuperMarket.Areas.Operator.Controllers
         {
             return View();
         }
-
-        //[HttpGet]
-        //public IActionResult Details(int? id)
-        //{
-        //    if (id != null)
-        //    {
-        //        if (id <= 0)
-        //        {
-        //            return NotFound();
-        //        }
-
-
-        //        Order? OrderFromDB = _unitOfWork.Order.Get(x => x.Id == id/* includeProperties: "ProductOrders"*/);
-        //        OrderVM? OrderVMFromDB = new()
-        //        {
-        //            Order = OrderFromDB ,
-        //            ProductOrder = _unitOfWork.ProductRepository.GetAll().Select(i => i.
-        //            //IEnumerable)
-        //        };
-
-        //        if (OrderFromDB == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        return View(OrderFromDB);
-        //    }
-        //    return View();
-        //}
-
-
-
 
         [HttpGet]
         public IActionResult Details(int? id)
@@ -96,26 +65,16 @@ namespace SuperMarket.Areas.Operator.Controllers
             return View();
         }
 
-
-
-
         [HttpPost]
-        public IActionResult Details(OrderVM orderVM)
+        public IActionResult Update(int id, int status)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    if (_category.Id == 0 || _category.Id == null)
-            //        _unitOfWork.Category.Add(_category);
-            //    else
-            //        _unitOfWork.Category.Update(_category);
-
-            //    _unitOfWork.Save();
-            //    TempData["success"] = "Category saved successfully";
-            //}
-            //else
-            //{
-            //    TempData["error"] = "Error creating category";
-            //}
+            Order orderFromDB = _unitOfWork.Order.Get(x => x.Id == id);
+            if (orderFromDB != null)
+            {
+                orderFromDB.Status = status;
+                _unitOfWork.Order.Update(orderFromDB);
+                _unitOfWork.Save();
+            }
             return RedirectToAction("Index");
         }
 

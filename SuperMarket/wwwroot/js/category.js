@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "https://localhost:7050/Admin/Category/GetAll",
+            "url": "/Admin/Category/GetAll",
              "dataSrc": "data"
 
         },

@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "https://localhost:7050/Admin/Product/GetAll"
+            "url": "/Admin/Product/GetAll"
         },
         "columns": [
             { "data": "barCode", "width": "10%" },
@@ -46,7 +46,7 @@ function loadDataTable() {
                     </a> 
                     `
                 },
-                "width": "12%"
+                "width": "15%"
             }
 
         ]

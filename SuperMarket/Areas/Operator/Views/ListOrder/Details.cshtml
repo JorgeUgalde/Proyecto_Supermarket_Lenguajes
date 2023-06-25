@@ -1,64 +1,32 @@
 ﻿@model OrderVM
-
-@*<div class="card  container pt-4">
-    <div class="card-header bg-primary text-light ml-0  row ">
-        <div class="col-12 col-md-6">
-            <h1 class="text-white-50">Details of order #@Model.Order.Id</h1>
-
-        </div>
-        <div class="col-12 col-md-6 text-end pt-4">
-            @if (@Model.Order.Status == 1)
-            {
-                <span class="badge bg-warning pt-2" style="height:30px;">Order State: New</span>
-            }
-            else if (@Model.Order.Status == 2)
-            {
-                <span class="badge bg-warning pt-2" style="height:30px;">Order State: In progress</span>
-            }
-            else
-            {
-                <span class="badge bg-warning pt-2" style="height:30px;">Order State: Finished</span>
-            }
-        </div>
-    </div>
-    <div class="card-body row container">
-        <div class="container rounded p-2">
-            <div class="row">
-                <div class="col-8 col-lg-8">
-                    <h3>Product list</h3>
-                    @foreach(var product in Model.SelectedProducts.ToList())
-                    {
-                        <p class="card-title h5 text-primary"> @product.Name</p>
-                    }
-                </div>
-                <div class="col-12 col-lg-3 offset-lg-1 text-center">
-                    @if (@Model.Order.Status == 1 || @Model.Order.Status == 2)
-                    {
-                        @*funcionalidad de cambiar estado de la orden
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-12 col-md-6 pb-1">
-                <a class="btn btn-success form-control " style="height:50px;" asp-action="Index">Return</a>
-            </div>
-        </div>
-    </div>
-</div>
-*@
+@using System.Globalization;
+@using SuperMarket.Utilities;
 
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
             <h2 class="text-primary">
-                Order List Products
+                <span>Order #@Model.Order.Id</span>
+                @if (@Model.Order.Status == OrderStatus.New)
+                {
+                    <span class="badge bg-warning pt-2" style="height:50px;">Order State: New</span>
+                }
+                else if (@Model.Order.Status == OrderStatus.InProgress)
+                {
+                    <span class="badge bg-warning pt-2" style="height:50px;">Order State: In progress</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning pt-2" style="height:50px;">Order State: Finished</span>
+                }
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary"> <i class="bi bi-plus-circle"></i> ModifyStatus (dropdown)</a>
+            @if (@Model.Order.Status == OrderStatus.New || @Model.Order.Status == OrderStatus.InProgress)
+            {
+                <button onclick="updateOrderState(@Model.Order.Id)" class="btn btn-primary">Modify Order Status</button>
+            }
+            <a asp-controller="ListOrder" asp-action="Index" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>Return</a>
         </div>
     </div>
 
@@ -67,29 +35,84 @@
             <tr>
                 <th>Picture</th>
                 <th>Name</th>
+                <th>Unit Price</th>
                 <th>Quantity</th>
-                <th>Price</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model.SelectedProducts.ToList())
+            @foreach(var order in Model.ProductOrder.ToList())
             {
                 <tr>
                     <td>
-                        <img src="@product.Picture" width="100" height="100" />
+                        <img  style="height:100;width:100px" src="~/@order.Product.PictureUrl">
                     </td>
                     <td>
-                        @product.Name
+                        @order.Product.Name
                     </td>
                     <td>
-                        @product.Quantity
+                        @order.Product.Price.ToString("C", CultureInfo.GetCultureInfo("es-cr"))
                     </td>
                     <td>
-                        @product.Price
+                        @order.Quantity
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <div class="text-end pt-1">
+        <h5 class="text-primary">
+            Total Amount: @Model.Order.ProductOrders.ToList().Sum(x => x.Quantity * x.Product.Price).ToString("C", CultureInfo.GetCultureInfo("es-cr"))
+        </h5>
+    </div>
 </div>
+
+<script>
+    // Función para cambiar el estado de la orden
+    function updateOrderState(idOrder) {
+        // Mostrar cuadro de diálogo de confirmación con opciones de estado
+        Swal.fire({
+            title: 'Change order state',
+            text: 'Select a new order state:',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+            input: 'select',
+            inputOptions: {
+                1: 'New',
+                2: 'In Progress',
+                3: 'Finished'
+            },
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Please, select a state';
+                }
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Obtener el estado seleccionado por el usuario
+                var newState = result.value;
+
+                // Enviar solicitud AJAX al servidor para cambiar el estado de la orden
+                $.ajax({
+                    url: `/Operator/ListOrder/Update/${idOrder}`,
+                    method: 'POST',
+                    data: { id: idOrder, status: newState },
+                    success: function (response) {
+                        // Mostrar mensaje de éxito al usuario
+                        Swal.fire('Success', 'Order state updated correctly', 'success');
+                        // Recargar la página
+                        setTimeout(function () {
+                            location.reload();
+                        }, 400);
+                    },
+                    error: function (error) {
+                        // Mostrar mensaje de error al usuario
+                        Swal.fire('Error', 'An error occured while changing the state', 'error');
+                    }
+                });
+            }
+        });
+    }
+</script>
 

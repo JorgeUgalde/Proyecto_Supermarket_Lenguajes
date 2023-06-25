@@ -17,7 +17,6 @@ namespace SuperMarket.Areas.Admin.Controllers
 		 * Customer: customer@ucr.ac.cr Usuario#10
 		 */
         private readonly IUnitOfWork _unitOfWork;
-        private readonly int SuperMarketId = 1;
 
         public StoreController(IUnitOfWork unitOfWork)
         {
@@ -26,19 +25,19 @@ namespace SuperMarket.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            Store store = _unitOfWork.Store.Get(x => x.Id == SuperMarketId);
+            Store store = _unitOfWork.Store.Get(x => x.Id == SuperMarketState.SuperMarketId);
             return View(store);
         }
 
         public ActionResult CloseSuperMarket()
         {
-            UpdateSuperMarketStatus(0); // Set the supermarket status to closed
+            UpdateSuperMarketStatus(SuperMarketState.Close_SuperMarket); // Set the supermarket status to closed
             return RedirectToAction("Index");
         }
 
         public ActionResult OpenSuperMarket()
         {
-            UpdateSuperMarketStatus(1); // Set the supermarket status to open
+            UpdateSuperMarketStatus(SuperMarketState.Open_SuperMarket); // Set the supermarket status to open
             return RedirectToAction("Index");
         }
 
@@ -55,7 +54,7 @@ namespace SuperMarket.Areas.Admin.Controllers
 
         private void UpdateSuperMarketStatus(int status)
         {
-            Store store = _unitOfWork.Store.Get(x => x.Id == SuperMarketId);
+            Store store = _unitOfWork.Store.Get(x => x.Id == SuperMarketState.SuperMarketId);
             if (store != null)
             {
                 store.IsOpen = status;
@@ -79,7 +78,7 @@ namespace SuperMarket.Areas.Admin.Controllers
         {
             bool isOpenState = false;
 
-            Store store = _unitOfWork.Store.Get(x => x.Id == 1);
+            Store store = _unitOfWork.Store.Get(x => x.Id == SuperMarketState.SuperMarketId);
             isOpenState = store?.IsOpen == 1;
 
             if (isOpenState == false)

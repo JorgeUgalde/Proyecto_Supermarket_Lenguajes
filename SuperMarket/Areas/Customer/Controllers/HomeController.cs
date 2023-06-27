@@ -70,11 +70,44 @@ namespace SuperMarket.Areas.Customer.Controllers
             return View();
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var productList = _unitOfWork.ProductRepository.GetAll(includeProperties: "Categories");
+            string baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            foreach (var item in productList)
+            {
+                if (item.PictureUrl != null)
+                {
+                    item.PictureUrl = $"{baseUrl}/{item.PictureUrl}";
+                }
+            }
+
+            var formattedList = productList.Select(Product => new
+            {
+                Id = Product.Id,
+                BarCode = Product.BarCode,
+                Name = Product.Name,
+                Price = Product.Price,
+                InStock = Product.InStock,
+                IsActive = Product.IsActive,
+                PictureUrl = Product.PictureUrl,
+                Unit = Product.Unit,
+                Categories = Product.Categories.Select(Category => new
+                {
+                    Id = Category.Id,
+                    Name = Category.Name
+                })
+            });
+
+            return Json(new { data = formattedList });
         }
     }
 }

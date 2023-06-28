@@ -25,7 +25,7 @@ function showcart() {
                     <div class="row">
                         <div class="col-lg-7">
                             <h5 class="mb-3">
-                                <a href="#!" class="text-body">
+                                <a href="${"../pages/Index.html"}" class="text-body">
                                     <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
                                 </a>
                             </h5>

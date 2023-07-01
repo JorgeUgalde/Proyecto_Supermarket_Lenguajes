@@ -77,6 +77,23 @@ function addToCart() {
     alert(productData.name);
 }
 
+function validateQuantity() {
+    var quantityInput = document.getElementById("quantity");
+    var quantity = parseInt(quantityInput.value);
+
+    // Verificar si el valor es menor que el mínimo
+    if (quantity < parseInt(quantityInput.min)) {
+        quantity = parseInt(quantityInput.min);
+        quantityInput.value = quantity;
+    }
+
+    // Verificar si el valor es mayor que el máximo
+    if (quantity > parseInt(quantityInput.max)) {
+        quantity = parseInt(quantityInput.max);
+        quantityInput.value = quantity;
+    }
+}
+
 $(document).ready(function() {
     // Obtener el objeto de producto almacenado en el local storage
     const productData = JSON.parse(localStorage.getItem('productData'));
@@ -109,7 +126,7 @@ $(document).ready(function() {
                           <img src="${productData.pictureUrl}" width="100%" class="rounded" />
                       </div>
                       <div class="col-12 py-2">
-                          Quantity : <input type="number" value="1" max="${productData.inStock}" min="1" id="quantity" />
+                      Quantity : <input type="number" value="1" max="${productData.inStock}" min="1" id="quantity" onchange="validateQuantity()" />
                       </div>
                   </div>
               </div>

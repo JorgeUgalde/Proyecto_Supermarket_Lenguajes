@@ -1,3 +1,6 @@
+
+const isActive = 1;
+
 function fetchJsonData() {
     $.ajax({
         url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/GetAll',
@@ -65,34 +68,39 @@ function fetchJsonData() {
         cardsContainer.empty();
         let row = $('<div class="row"></div>');
     
+        
         data.data.forEach(item => {
-            let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');
-            listItem.addClass('mb-3'); // Add margin class
+            if(item.isActive = isActive && item.inStock > 0) {
+
+            
+                let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');
+                listItem.addClass('mb-3'); // Add margin class
     
-            let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" style="height:140px;width:220px" alt="">');
-            let cardBody = $('<div class="card-body"></div>');
-            let cardTitle = $('<h5 class="card-title">' + item.name + '</h5>');
-            let cardText = $('<p class="card-text">fuap</p>');
-            let viewMoreLink = $('<a href="../pages/Details.html?id=' + item.id + '" class="btn btn-primary">View more</a>');
+                let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" style="height:140px;width:220px" alt="">');
+                let cardBody = $('<div class="card-body"></div>');
+                let cardTitle = $('<h5 class="card-title">' + item.name + '</h5>');
+                let cardText = $('<p class="card-text">fuap</p>');
+                let viewMoreLink = $('<a href="../pages/Details.html?id=' + item.id + '" class="btn btn-primary">View more</a>');
     
-            // Store product data in local storage when the user clicks on the "View more" button
-            viewMoreLink.on('click', function() {
-                localStorage.setItem('productData', JSON.stringify(item));
-            });
+                // Store product data in local storage when the user clicks on the "View more" button
+                viewMoreLink.on('click', function() {
+                    localStorage.setItem('productData', JSON.stringify(item));
+                });
     
-            // Responsive classes for mobile and larger screens
-            image.addClass('img-mobile'); // Mobile: full width
-            cardTitle.addClass('card-title-mobile'); // Mobile: below the image
+                // Responsive classes for mobile and larger screens
+                image.addClass('img-mobile'); // Mobile: full width
+                cardTitle.addClass('card-title-mobile'); // Mobile: below the image
     
-            // Append elements to the card body
-            cardBody.append(image);
-            cardBody.append(cardTitle);
-            cardBody.append(cardText);
-            cardBody.append(viewMoreLink);
+                // Append elements to the card body
+                cardBody.append(image);
+                cardBody.append(cardTitle);
+                cardBody.append(cardText);
+                cardBody.append(viewMoreLink);
     
-            listItem.append(cardBody);
+                listItem.append(cardBody);
     
-            row.append(listItem);
+                row.append(listItem);
+            }
         });
     
         cardsContainer.append(row);

@@ -14,6 +14,6 @@ namespace SuperMarket.Models.ViewModels
         [ValidateNever]
         public IEnumerable<Product> SelectedProducts { get; set; }
 
-       
+        public double TotalAmount { get; set; }
     }
 }

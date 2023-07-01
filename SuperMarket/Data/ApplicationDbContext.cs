@@ -12,6 +12,7 @@ namespace SuperMarket.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

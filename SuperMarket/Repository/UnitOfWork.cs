@@ -7,13 +7,11 @@ namespace SuperMarket.Repository
     public class UnitOfWork : IUnitOfWork
     {
         public IProductRepository ProductRepository { get; private set; }
-
         public ICategoryRepository Category { get; private set; }
-
         public IStoreRepository Store { get; private set; }
-
         public IOrderRepository Order { get; private set; }
         public IListOrderRepository ListOrder { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         public ApplicationDbContext _db;
 
@@ -25,6 +23,7 @@ namespace SuperMarket.Repository
 			Store = new StoreRepository(_db);
             Order = new OrderRepository(_db);
             ListOrder = new ListOrderRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public void Save()

@@ -69,7 +69,7 @@ function fetchJsonData() {
             let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');
             listItem.addClass('mb-3'); // Add margin class
     
-            let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" alt="">');
+            let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" style="height:140px;width:220px" alt="">');
             let cardBody = $('<div class="card-body"></div>');
             let cardTitle = $('<h5 class="card-title">' + item.name + '</h5>');
             let cardText = $('<p class="card-text">fuap</p>');

@@ -1,104 +1,123 @@
-function addRemove() {
-    var cart = {
-        items: [],
-        addItem: function(item) {
-            this.items.push(item);
-        },
-        removeItem: function(item) {
-            var index = this.items.indexOf(item);
-            if (index >= 0) {
-                this.items.splice(index, 1);
-            }
-        }
-    };
-    return cart;
-}
+function removeItem(index) {
+    // Retrieve JSON data from local storage
+    let jsonData = localStorage.getItem('cart');
+  
+    // Check if data exists in local storage
+    if (jsonData) {
+      // Parse JSON data into an array
+      let data = JSON.parse(jsonData);
+  
+      // Remove the item at the specified index
+      data.splice(index, 1);
+  
+      // Update the JSON data in local storage
+      localStorage.setItem('cart', JSON.stringify(data));
+    }
+  }
 
 function showcart() {
-    const shoppingCart = `
-<div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col">
-        <h1 class="text-center mb-5">Shopping cart</h1>
-            <div class="card">
-                <div class="card-body p-4">
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <h5 class="mb-3">
-                                <a href="${"../pages/Index.html"}" class="text-body">
-                                    <i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping
+    // //read from local storage and parse the data into an object from the details page
+    // var cart = JSON.parse(localStorage.getItem('cart'));
+    // //get the cart container
+    // var cartContainer = document.getElementById('cartContainer');
+    // //clear the container
+    // cartContainer.innerHTML = '';
+    // //loop through the items in the cart using ajax
+    // for (var i = 0; i < cart.items.length; i++) {
+    //     //show the picture, name, price and quantity
+    //     var item = cart.items[i];
+    //     var itemContainer = document.createElement('div');
+    //     itemContainer.className = 'itemContainer';
+    //     var itemImage = document.createElement('img');
+    //     itemImage.src = item.pictureUrl;
+    //     itemImage.className = 'itemImage';
+    //     var itemName = document.createElement('p');
+    //     itemName.innerHTML = item.name;
+    //     itemName.className = 'itemName';
+    //     var itemPrice = document.createElement('p');
+    //     itemPrice.innerHTML = item.price;
+    //     itemPrice.className = 'itemPrice';
+    //     var itemQuantity = document.createElement('p');
+    //     itemQuantity.innerHTML = item.quantity;
+    //     itemQuantity.className = 'itemQuantity';
+    //     var itemTotal = document.createElement('p');
+    //     itemTotal.innerHTML = item.price * item.quantity;
+    //     itemTotal.className = 'itemTotal';
+    //     var removeButton = document.createElement('button');
+    //     removeButton.innerHTML = 'Remove';
+    //     removeButton.className = 'removeButton';
+    //     removeButton.onclick = function() {
+    //         cart.removeItem(item);
+    //         localStorage.setItem('cart', JSON.stringify(cart));
+    //         showcart();
+    //     }
+    //     itemContainer.appendChild(itemImage);
+    //     itemContainer.appendChild(itemName);
+    //     itemContainer.appendChild(itemPrice);
+    //     itemContainer.appendChild(itemQuantity);
+    //     itemContainer.appendChild(itemTotal);
+    //     itemContainer.appendChild(removeButton);
+    //     cartContainer.appendChild(itemContainer);
+    // }
+
+    let jsonData = localStorage.getItem('cart');
+  
+    // Check if data exists in local storage
+    if (jsonData) {
+        // Parse JSON data into an array
+        let data = JSON.parse(jsonData);
+
+        // Get the container element to display the data
+        let container = $('.data-container');
+        container.empty();
+
+        // Iterate over the data array
+        data.forEach(item => {
+            // Create HTML elements for each item in the array
+            let itemContainer = $('<div class="item-container"></div>');
+            // itemContainer.append('<p>Name: ' + item.product.name + '</p>');
+            // itemContainer.append('<p>Price: ' + item.product.price + '</p>');
+            // itemContainer.append('<p>Quantity: ' + item.quantity + '</p>');
+            // itemContainer.append('<p>Total Amount: ' + item.totalAmount + '</p>');
+
+            const shoppingCart = `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <div>
+                                <img
+                                src="${item.product.pictureUrl}"
+                                class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                                </div>
+                                <div class="ms-3">
+                                    <h5>${item.product.name}</h5>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <div style="width: 50px;">
+                                    <p>${item.quantity}</p>
+                                </div>
+                                <div style="width: 80px;">
+                                    <p>${item.product.price}</p>
+                                </div>
+                                <a href="${removeItem(item.product.id)}" class="text-body">
+                                    <img src="${"../images/removeIcon.png"}" style="height:10px;width:10px" alt="" id="removeimg">
                                 </a>
-                            </h5>
-                            <hr>
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div>
-                                    <p class="mb-1">Shopping cart</p>
-                                    <p>items in the cart</p>
-                                </div>
-                                <div>
-                                    <p class="mb-0">
-                                        <span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <div>
-                                                <p>pictureUrl</p>
-                                            </div>
-                                            <div class="ms-3">
-                                                <h5>name</h5>
-                                                <p class="small mb-0">small description(optional)</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-row align-items-center">
-                                            <div style="width: 50px;">
-                                                <p>quantity</p>
-                                            </div>
-                                            <div style="width: 80px;">
-                                                <p>price</p>
-                                            </div>
-                                            <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="card bg-primary text-white rounded-3">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <h5 class="mb-0">Details</h5>
-                                        <img src="../images/user.png" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
-                                    </div>
-                                    <hr class="my-4">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="mb-2">Subtotal</p>
-                                        <p class="mb-2">totalAmount</p>
-                                    </div>
-                                    <button type="button" class="btn btn-info btn-block btn-lg">
-                                        <div class="d-flex justify-content-between">
-                                            <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                        </div>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-`;
+            `;
+            container.append(shoppingCart);
+        });
 
-// Add the HTML content to a target element
-const cartContainer = document.getElementById('cartContainer');
-cartContainer.innerHTML = shoppingCart;
+    } else {
+        // Display a message if no data is found in local storage
+        $('.data-container').html('<p>No items int the cart</p>');
+    }
 }
 
 $( document ).ready(function() {
-    showcart();
+    showcart()
 });

@@ -13,5 +13,10 @@ namespace SuperMarket.Models
         public int Status { get; set; }
 
         public ICollection<ProductOrder> ProductOrders { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

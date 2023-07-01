@@ -10,6 +10,58 @@
     <script src="../scripts/Cart.js"></script>
 </head>
 <body>
-    <div id="cartContainer"></div>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+            <h1 class="text-center mb-5">Shopping cart</h1>
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h5 class="mb-3">
+                                    <a href="./Index.html" class="text-body">
+                                        <i class="fas fa-long-arrow-alt-left"></i>Continue shopping
+                                    </a>
+                                </h5>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <p class="mb-1">Shopping cart</p>
+                                        <p>Items in the cart</p>
+                                    </div>
+                                    <div>
+                                        <p class="mb-0">
+                                            <span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i class="fas fa-angle-down mt-1"></i></a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="data-container"></div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="card bg-primary text-white rounded-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <h5 class="mb-0">Details</h5>
+                                            <img src="../images/user.png" class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                                        </div>
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">Subtotal</p>
+                                            <p class="mb-2">Total Amount:</p>
+                                        </div>
+                                        <button type="button" class="btn btn-info btn-block btn-lg">
+                                            <div class="d-flex justify-content-between">
+                                                <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

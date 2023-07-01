@@ -22,50 +22,10 @@ namespace SuperMarket.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> ProductList = _unitOfWork.ProductRepository.GetAll();
-            return View(ProductList);
-        }
-
-
-        [HttpGet]
-        public IActionResult Details(int id)
-        {
-            Product Product = _unitOfWork.ProductRepository.Get(v => v.Id == id);
-
-            if (Product == null)
-            {
-                return NotFound();
-            }
-
-            return View(Product);
-        }
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 
-        //[HttpGet]
-        //public IActionResult AddToCart(int id)
-        //{
-
-        //    string cadena = HttpContext.Current.Request.Url.AbsoluteUri;
-        //    string[] Separado = cadena.Split('/');
-        //    string Final = Separado[Separado.Length - 1];
-
-
-        //    //Product Product = _unitOfWork.ProductRepository.Get(v => v.Id == id);
-
-        //    //if (Product == null)
-        //    //{
-        //    //    return NotFound();
-        //    //}
-
-        //    return View("Index");
-        //}
-
-        [HttpGet]
-        public IActionResult Cart()
+        public IActionResult Privacy()
         {
             return View();
         }
@@ -76,6 +36,7 @@ namespace SuperMarket.Areas.Customer.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        #region API CALLS
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -109,5 +70,6 @@ namespace SuperMarket.Areas.Customer.Controllers
 
             return Json(new { data = formattedList });
         }
+        #endregion
     }
 }

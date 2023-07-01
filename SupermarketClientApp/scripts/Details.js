@@ -38,11 +38,9 @@
 
 
 // Función para agregar al carrito
-function addToCart(productData) {
+function addToCart() {
     // Obtener el objeto de producto almacenado en el local storage
-    // const productData = JSON.parse(localStorage.getItem('productData'));
-
-    alert(productData.id);
+     const productData = JSON.parse(localStorage.getItem('productData'));
 
     var quantity = document.getElementById("quantity").value;
     var totalAmount = productData.price * quantity;
@@ -76,11 +74,14 @@ function addToCart(productData) {
 
     // Guardar el carrito actualizado en el Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
+    alert(productData.name);
 }
 
 $(document).ready(function() {
     // Obtener el objeto de producto almacenado en el local storage
     const productData = JSON.parse(localStorage.getItem('productData'));
+
+    
   
     // Crear el código HTML utilizando los datos del producto
     let productHTML = `
@@ -119,7 +120,7 @@ $(document).ready(function() {
                     <a class="btn btn-success form-control" style="height:50px;" href="./Index.html">Back to Home</a>
                   </div>
                   <div class="col-12 col-md-6 pb-1">
-                    <button class="btn btn-primary" style="height:50px; width:100%;" onclick="addToCart(productData)">Add to Cart</button>
+                    <button class="btn btn-primary" style="height:50px; width:100%;" onclick="addToCart()">Add to Cart</button>
                   </div>
               </div>
           </div>

@@ -157,6 +157,15 @@ namespace SuperMarket.Areas.Admin.Controllers
                         existingProduct.Categories.Add(category); // Add the selected categories
                     }
 
+                    existingProduct.BarCode = _ProductVM.Product.BarCode;
+                    existingProduct.Name = _ProductVM.Product.Name;
+                    existingProduct.Price = _ProductVM.Product.Price;
+                    existingProduct.InStock = _ProductVM.Product.InStock;
+                    existingProduct.IsActive = _ProductVM.Product.IsActive;
+                    existingProduct.PictureUrl = _ProductVM.Product.PictureUrl;
+                    existingProduct.Unit = _ProductVM.Product.Unit;
+
+
                     _unitOfWork.ProductRepository.Update(existingProduct);
                     _unitOfWork.Save();
                     TempData["success"] = "Product updated successfully";

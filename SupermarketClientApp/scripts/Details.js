@@ -10,7 +10,7 @@ function fetchJsonData() {
     type: 'GET',
     success: function(data) {
       productData = data.data;
-      productDetails(data.data);
+      productDetails(productData);
     },
     error: function(error) {
       // Aquí puedes manejar el error en caso de que ocurra
@@ -82,10 +82,6 @@ function validateQuantity() {
 $(document).ready(function () {
 
   fetchJsonData();
-  
-  productDetails();
-
-
     // Obtener el objeto de producto almacenado en el local storage
     // const productData = JSON.parse(localStorage.getItem('productData'));
 

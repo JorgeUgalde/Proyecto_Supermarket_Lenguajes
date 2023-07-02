@@ -11,6 +11,9 @@ function showcart() {
         let container = $('.data-container');
         container.empty();
 
+        let total = $('.total-amount');
+        total.empty();
+
         // Iterate over the data array
         data.forEach(item => {
              //Create HTML elements for each item in the array
@@ -50,11 +53,27 @@ function showcart() {
                 </div>
             `;
             container.append(shoppingCart);
+            total.append('<p>Total Amount: ' + totalAmount + '</p>');
         });
 
     } else {
         // Display a message if no data is found in local storage
         $('.data-container').html('<p>No items int the cart</p>');
+    }
+}
+
+function calculateTotalAmount() {
+    let jsonData = localStorage.getItem('cart');
+    if (jsonData) {
+        // Parse JSON data into an array
+        let data = JSON.parse(jsonData);
+        let totalAmount = 0;
+
+        data.forEach(item => {
+            totalAmount += item.totalAmount;
+        });
+        const totalAmountElement = document.getElementById('totalAmount');
+        totalAmountElement.textContent = 'Total Amount: $' + totalAmount;
     }
 }
 
@@ -78,5 +97,6 @@ function removeItem(itemId) {
 }
 
 $( document ).ready(function() {
-    showcart()
+    showcart();
+    calculateTotalAmount();
 });

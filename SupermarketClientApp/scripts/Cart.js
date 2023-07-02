@@ -74,6 +74,7 @@ function removeItem(itemId) {
       // Update the JSON data in local storage
       localStorage.setItem('cart', JSON.stringify(updatedData));
     }
+    location.reload();
 }
 
 $( document ).ready(function() {

@@ -1,3 +1,25 @@
+let totalAmount = 0;
+
+function fetchJsonData() {
+    //Optener el id de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    id = urlParams.get('id');
+  
+    $.ajax({
+      url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/Details/' + id,
+      type: 'GET',
+      success: function(data) {
+        productData = data.data;
+        return productData;
+      },
+      error: function(error) {
+        // Aquí puedes manejar el error en caso de que ocurra
+        console.error(error);
+      }
+    });
+  }
+
+function showcart() {
 
 function fetchJsonData(id) {
 
@@ -72,7 +94,7 @@ function showcart(productData, data) {
                                 <div style="width: 80px;">
                                     <p>${product.price}</p>
                                 </div>
-                                <button type="button" onclick="removeItem(${product.id})" class="btn btn-danger btn-sm">X</button>
+                                <button type="button" onclick="removeItem(${item.product.id})" class="close">x</button>
                             </div>
                         </div>  
                     </div>
@@ -94,7 +116,6 @@ function calculateTotalAmount() {
     if (jsonData) {
         // Parse JSON data into an array
         let data = JSON.parse(jsonData);
-        let totalAmount = 0;
 
         data.forEach(item => {
             totalAmount += item.totalAmount;
@@ -120,11 +141,17 @@ function removeItem(itemId) {
         // Update the JSON data in local storage
         localStorage.setItem('cart', JSON.stringify(updatedData));
     }
+}
+
+//confirm order
+function confirmOrder() {
+    console.log('Item removed from cart');
     location.reload();
 }
 
-$(document).ready(function () {
-    loadProducts();
+$( document ).ready(function() {
+    //fetchJsonData();
+    showcart();
     calculateTotalAmount();
 });
 

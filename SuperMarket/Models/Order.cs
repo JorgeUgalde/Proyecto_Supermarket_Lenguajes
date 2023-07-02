@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SuperMarket.Models
 {
@@ -14,8 +13,8 @@ namespace SuperMarket.Models
 
         public ICollection<ProductOrder> ProductOrders { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public string ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationUserId")]
+        public int ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
     }

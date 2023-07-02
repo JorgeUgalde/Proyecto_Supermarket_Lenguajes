@@ -32,18 +32,18 @@ function addToCart() {
       // No hay carrito aún
       cart = [];
       cart.push({
-          "product": productData,
+          "productId": productData.id,
           "quantity": quantity,
           "totalAmount": totalAmount
       });
   } else {
       // El carrito ya existe
       cart = JSON.parse(cart);
-      var index = cart.findIndex(x => x.product.id == productData.id);
+      var index = cart.findIndex(x => x.productId == productData.id);
       if (index == -1) {
           // El producto no está en el carrito
           cart.push({
-              "product": productData,
+              "productId": productData.id,
               "quantity": quantity,
               "totalAmount": totalAmount
           });
@@ -139,4 +139,3 @@ function productDetails(productData){
       // Insertar el código HTML en el elemento #product-details
       $('#product-details').html(productHTML);
 }
-

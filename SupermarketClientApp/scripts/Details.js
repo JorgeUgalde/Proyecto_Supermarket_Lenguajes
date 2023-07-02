@@ -1,42 +1,3 @@
-
-// // Función para agregar al carrito
-// function addToCart(productData) {
-//     // Obtener el objeto de producto almacenado en el local storage
-//     // const productData = JSON.parse(localStorage.getItem('productData'));
-
-//     alert(productData.id);
-
-//     var quantity = document.getElementById("quantity").value;
-
-//     var cart = localStorage.getItem("cart");
-//     if (cart == null) {
-//         // No hay carrito aún
-//         cart = [];
-//         cart.push({
-//             "product": productData,
-//             "quantity": quantity
-//         });
-//     } else {
-//         // El carrito ya existe
-//         cart = JSON.parse(cart);
-//         var index = cart.findIndex(x => x.productId == productData.id);
-//         if (index == -1) {
-//             // El producto no está en el carrito
-//             cart.push({
-//                 "product": productData,
-//                 "quantity": quantity
-//             });
-//         } else {
-//             // El producto ya está en el carrito
-//             cart[index].quantity = quantity;
-//         }
-//     }
-
-//     // Guardar el carrito actualizado en el Local Storage
-//     localStorage.setItem("cart", JSON.stringify(cart));
-// }
-
-
 // Función para agregar al carrito
 function addToCart() {
     // Obtener el objeto de producto almacenado en el local storage
@@ -74,7 +35,7 @@ function addToCart() {
 
     // Guardar el carrito actualizado en el Local Storage
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(productData.name);
+    alert(productData.name + " added to cart. " + quantity + " items");
 }
 
 function validateQuantity() {
@@ -109,7 +70,7 @@ $(document).ready(function () {
       <h1 class="text-white-50">${productData.name}</h1>
     </div>
     <div class="col-12 col-md-6 text-end pt-4">
-      <span class="badge bg-warning pt-2" style="height:30px;">${productData.barcode}</span>
+      <span class="badge bg-warning pt-2" style="height:30px;">${productData.barCode}</span>
     </div>
   </div>
   <div class="card-body row container">

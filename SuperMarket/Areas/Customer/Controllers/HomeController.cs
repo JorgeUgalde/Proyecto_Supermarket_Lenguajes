@@ -70,6 +70,37 @@ namespace SuperMarket.Areas.Customer.Controllers
 
             return Json(new { data = formattedList });
         }
+
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            var productBD = _unitOfWork.ProductRepository.Get(u => u.Id == id, includeProperties: "Categories");
+            string baseUrl = $"{Request.Scheme}://{Request.Host}";
+
+            if (productBD.PictureUrl != null)
+            {
+                productBD.PictureUrl = $"{baseUrl}/{productBD.PictureUrl}";
+            }
+
+            var formattedProduct = new
+            {
+                Id = productBD.Id,
+                BarCode = productBD.BarCode,
+                Name = productBD.Name,
+                Price = productBD.Price,
+                InStock = productBD.InStock,
+                IsActive = productBD.IsActive,
+                PictureUrl = productBD.PictureUrl,
+                Unit = productBD.Unit,
+                Categories = productBD.Categories.Select(Category => new
+                {
+                    Id = Category.Id,
+                    Name = Category.Name
+                })
+            };
+
+            return Json(new { data = formattedProduct });
+        }
         #endregion
     }
 }

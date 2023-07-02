@@ -70,7 +70,7 @@ function fetchJsonData() {
     
         
         data.data.forEach(item => {
-            if(item.isActive = isActive && item.inStock > 0) {
+            if(item.isActive === isActive && item.inStock > 0) {
 
             
                 let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');

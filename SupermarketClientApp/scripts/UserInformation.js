@@ -59,7 +59,7 @@ function saveUserOnBD(userData) {
 console.log(userData);
 
     $.ajax({
-        url: 'https://localhost:7050/Customer/Home/CreateUser',
+        url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/CreateUser',
         type: 'POST',
         contentType: 'application/json',
         data: userData,

@@ -131,14 +131,15 @@ namespace SuperMarket.Areas.Customer.Controllers
                 return Json(new { success = false, message = "Error while Creating" });
             }
 
+            ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.UserIdentification == orderData.UserId);
 
             // 1. Crear la orden
             Order order = new Order
             {
                 UserIdentification = orderData.UserId,
-                Status = OrderStatus.New
+                Status = OrderStatus.New,
+                ApplicationUser = user
             };
-
 
             _unitOfWork.Order.Add(order);
             _unitOfWork.Save();

@@ -177,6 +177,8 @@ function confirmPurchase() {
         index++;
     }
 
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
     const productsData = data.map(item => ({
         ProductId: item.productId,
         Quantity: item.quantity
@@ -184,7 +186,7 @@ function confirmPurchase() {
 
       const payload = {
         ProductsData: productsData,
-        UserId: 1
+        UserId: userData.UserIdentification
       };
 
     console.log(data);

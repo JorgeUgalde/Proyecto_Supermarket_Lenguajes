@@ -35,7 +35,7 @@ namespace SuperMarket.Areas.Operator.Controllers
                 }
 
                 // Obtener la orden de la base de datos
-                Order orderFromDB = _unitOfWork.Order.Get(x => x.Id == id, includeProperties: "ProductOrders");
+                Order orderFromDB = _unitOfWork.Order.Get(x => x.Id == id, includeProperties: "ProductOrders,ApplicationUser");
                 if (orderFromDB == null)
                 {
                     return NotFound();

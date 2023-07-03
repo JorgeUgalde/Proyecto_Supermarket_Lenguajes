@@ -74,8 +74,9 @@ namespace SuperMarket.Areas.Admin.Controllers
             }
             else
             {
-                TempData["error"] = "Error creating category";
+                TempData["error"] = "Error saving category";
             }
+
             return RedirectToAction("Index");
         }
 
@@ -91,12 +92,12 @@ namespace SuperMarket.Areas.Admin.Controllers
 
             if (CategoryToDelete == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Error while deleting category" });
             }
 
             _unitOfWork.Category.Remove(CategoryToDelete);
             _unitOfWork.Save();
-            return Json(new { success = true, message = "Deleted successfully" });
+            return Json(new { success = true, message = "Category deleted successfully" });
         }
 
         [HttpGet]

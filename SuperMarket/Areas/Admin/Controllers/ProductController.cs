@@ -79,15 +79,6 @@ namespace SuperMarket.Areas.Admin.Controllers
         public IActionResult Upsert(ProductVM _ProductVM, IFormFile? file)
         {
 
-
-            foreach (var categoria in _ProductVM.SelectedCategories)
-            {
-                // Accede a las propiedades de cada objeto de categoría aquí
-                // Por ejemplo:
-                Console.WriteLine(categoria);
-            }
-
-
             if (ModelState.IsValid)
             {
 
@@ -138,7 +129,6 @@ namespace SuperMarket.Areas.Admin.Controllers
 
                     _unitOfWork.Save();
                     TempData["success"] = "Product created successfully";
-
                     _unitOfWork.ProductRepository.Add(_ProductVM.Product);
                 }
                 else
@@ -176,6 +166,7 @@ namespace SuperMarket.Areas.Admin.Controllers
             {
                 TempData["error"] = "Error saving product";
             }
+
             return RedirectToAction("Index");
         }
 
@@ -240,7 +231,7 @@ namespace SuperMarket.Areas.Admin.Controllers
             _unitOfWork.ProductRepository.Remove(productToDelete);
             _unitOfWork.Save();
 
-            return Json(new { success = true, message = "Deleted successfully" });
+            return Json(new { success = true, message = "Product deleted successfully" });
         }
 
         #endregion

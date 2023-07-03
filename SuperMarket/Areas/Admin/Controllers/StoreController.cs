@@ -11,11 +11,6 @@ namespace SuperMarket.Areas.Admin.Controllers
     [Area("Admin")]
     public class StoreController : Controller
 	{
-        /*
-         * Admin: admin@ucr.ac.cr Usuario#10
-		 * 
-		 * Customer: customer@ucr.ac.cr Usuario#10
-		 */
         private readonly IUnitOfWork _unitOfWork;
 
         public StoreController(IUnitOfWork unitOfWork)
@@ -32,12 +27,14 @@ namespace SuperMarket.Areas.Admin.Controllers
         public ActionResult CloseSuperMarket()
         {
             UpdateSuperMarketStatus(SuperMarketState.Close_SuperMarket); // Set the supermarket status to closed
+            TempData["success"] = "Supermarket closed successfully";
             return RedirectToAction("Index");
         }
 
         public ActionResult OpenSuperMarket()
         {
             UpdateSuperMarketStatus(SuperMarketState.Open_SuperMarket); // Set the supermarket status to open
+            TempData["success"] = "Supermarket opened successfully";
             return RedirectToAction("Index");
         }
 
@@ -84,10 +81,11 @@ namespace SuperMarket.Areas.Admin.Controllers
             if (isOpenState == false)
             {
                 // SuperMarket is closed, redirect to the "SuperMarketClosed" view in Customer/Views/Shared
-                context.Result = new ViewResult
-                {
-                    ViewName = "SuperMarketClosed"
-                };
+                //context.Result = new ViewResult
+                //{
+                //    ViewName = "SuperMarketClosed"
+                //};
+                context.Result = new JsonResult(new { message = "SuperMarket is closed" });
             }
 
             base.OnActionExecuting(context);

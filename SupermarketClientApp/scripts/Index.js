@@ -28,44 +28,9 @@ function generateCards(data) {
     cardsContainer.empty();
     let row = $('<div class="row"></div>');
 
-
-    // data.data.forEach(item => {
-    //     if (item.isActive === isActive && item.inStock > 0) {
-
-
-
-    //         let categoryList = item.categories[0].name;
-    //             for (let category = 1; category < item.categories.length; category++) {
-    //                 categoryList += "-" + item.categories[category].name;
-    //             }
-
-    //         const card = `
-    //         <div class="col-md-3 col-md-3 col-md-3 mt-4">
-    //             <div class="card mb-4 shadow-sm" style="width:22 rem; height:22rem">
-    //                     <img src="${item.pictureUrl}" class="card-img-top" style="height:160px; width:286px" alt="">
-    //                     <div class="card-body">
-    //                         <p class="card-title h5 text-primary">${item.name}</p>
-
-
-    //                         <p class="card-text">  ${categoryList}  </p>
-
-
-    //                         <p class="card-title text-info">${item.price.toLocaleString("es-CR", { style: "currency", currency: "CRC" })}</p>
-    //                         <div class="d-flex justify-content-between align-items-center">
-    //                         <a href="../pages/Details.html?id=${item.id}" class="btn btn-primary stretched-link">View more</a>
-    //                         </div>
-    //                     </div>
-    //             </div>        
-    //         </div>
-    //         `;
-
-    //         row.append(card);
-    //     }
-    // });
-
     data.data.forEach(item => {
-        if (item.isActive = isActive && item.inStock > 0) {
-            let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');
+        if (item.isActive === isActive && item.inStock > 0) {
+            let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem; margin-right: 5px; margin-left: 10px;"></div>');
             listItem.addClass('mb-3'); // Add margin class
 
             let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" style="height:140px;width:220px" alt="">');

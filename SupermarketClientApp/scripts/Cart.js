@@ -143,10 +143,33 @@ function updateItem(itemId, quantity, index) {
     location.reload();
 }
 
+function removeAllItems() {
+    localStorage.removeItem('cart');
+    location.reload();
+}
+
+function countItems() {
+    let h6container = $('#itemsCount');
+    let jsonData = localStorage.getItem('cart');
+    let count = 0;
+    // Check if data exists in local storage
+    if (jsonData) {
+        // Parse JSON data into an array
+        let data = JSON.parse(jsonData);
+        // Iterate over the data array
+        for (const item of data) {
+            count ++;
+        }
+        h6container.append('<h6>Items in cart(' + count + ')</h6>');
+    } else {
+        h6container.append('<h6>Items in cart(0)</h6>');
+    }
+}
 
 $(document).ready(function () {
     loadProducts();
     calculateTotalAmount();
+    countItems();
 });
 
 
@@ -204,17 +227,23 @@ function confirmPurchase() {
         data: JSON.stringify(payload),
         success: function (response) {
             // Handle the response from the server if needed
-            console.log(response);
+            if (response === 403) {
+                console.log(response);
+                // Redirect the user to the "StoreClosed" page
+                window.location.href = '../pages/ClosedSupermarket.html';
+            } else {
+            localStorage.removeItem('cart');
+            alert("Your purchase has been confirmed");
+            window.location.href = '../pages/Index.html';
+            }
         },
-        error: function (error) {
-
-            console.error(error);
+        error: function (response) {
+            // Handle the error from the server if needed
+            console.log(response);
+            alert("Error. Your purchase has not been confirmed");
+            //window.location.href = '../pages/Index.html';
         }
     });
-
-    localStorage.removeItem('cart');
-    alert("Your purchase has been confirmed");
-    window.location.href = '../pages/Index.html';
 
 }
 
@@ -264,7 +293,7 @@ function loadOrderData() {
     } else {
         $('#ConfirmBTN').prop('hidden' , true);
 
-        $('#confirm-order').html('<p>No items int the cart</p>');
+        $('#confirm-order').html('<p>No items in the cart</p>');
     }
 
 }

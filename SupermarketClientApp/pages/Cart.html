@@ -8,13 +8,27 @@
     <link rel="stylesheet" type="text/css" href="../lib/bootstrap/bootstrap (9).css">
     <script src="../lib/jquery/jquery-3.7.0.min.js"></script>
     <script src="../scripts/Cart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary sticky-top mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./Index.html">Pepes Supermarket</a>     
-            <a class="navbar-brand" href="./UserInformation.html">Update Personal Information</a>      
+            <a class="navbar-brand" href="./Index.html">Pepes Supermarket
+                <img src="../images/pepes-supermarket-high-resolution-logo-color-on-transparent-background.webp" style="height:80px;width:140px" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="./UserInformation.html">Update Personal Information</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -33,13 +47,13 @@
                                 </h5>
                                 <hr>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div>
-                                        <p class="mb-1">Shopping cart</p>
+                                    <div id="itemsCount">
+                                        <h5></h5>
                                     </div>
                                     <div>
-                                        <p class="mb-0">
-                                            <span id="cart-count"></span> items
-                                        </p>
+                                        <button type="button" class="btn btn-danger btn-sm">
+                                            <span onclick="removeAllItems()">Clean Shopping Cart <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="data-container"></div>

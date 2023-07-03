@@ -85,7 +85,7 @@ namespace SuperMarket.Areas.Admin.Controllers
                 //{
                 //    ViewName = "SuperMarketClosed"
                 //};
-                context.Result = new JsonResult(new { message = "SuperMarket is closed" });
+                context.Result = new JsonResult(403);
             }
 
             base.OnActionExecuting(context);

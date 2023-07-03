@@ -10,7 +10,6 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 namespace SuperMarket.Areas.Customer.Controllers
 {
     [Area("Customer")]
-    [TypeFilter(typeof(SuperMarketStateAttribute))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -122,7 +121,7 @@ namespace SuperMarket.Areas.Customer.Controllers
             return Json(new { data = formattedProduct });
         }
 
-
+        [TypeFilter(typeof(SuperMarketStateAttribute))]
         [HttpPost]
         public IActionResult CreateOrder([FromBody] OrderDataVM orderData)
         {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using SuperMarket.Areas.Admin.Controllers;
 using SuperMarket.Models.ViewModels;
+using SuperMarket.Utilities;
 
 namespace SuperMarket.Areas.Customer.Controllers
 {
@@ -131,7 +132,7 @@ namespace SuperMarket.Areas.Customer.Controllers
             Order order = new Order
             {
                 ApplicationUserId = orderData.UserId,
-                Status = 1
+                Status = OrderStatus.New
             };
 
             _unitOfWork.Order.Add(order);

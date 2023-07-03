@@ -130,7 +130,8 @@ namespace SuperMarket.Areas.Customer.Controllers
             // 1. Crear la orden
             Order order = new Order
             {
-                ApplicationUserId = orderData.UserId
+                ApplicationUserId = orderData.UserId,
+                Status = 1
             };
 
             _unitOfWork.Order.Add(order);

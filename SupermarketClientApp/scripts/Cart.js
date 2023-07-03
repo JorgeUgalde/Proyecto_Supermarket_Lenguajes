@@ -1,25 +1,5 @@
-let totalAmount = 0;
-
-function fetchJsonData() {
-    //Optener el id de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    id = urlParams.get('id');
-  
-    $.ajax({
-      url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/Details/' + id,
-      type: 'GET',
-      success: function(data) {
-        productData = data.data;
-        return productData;
-      },
-      error: function(error) {
-        // Aquí puedes manejar el error en caso de que ocurra
-        console.error(error);
-      }
-    });
-  }
-
-function showcart() {
+let productData = [];
+let data = null;
 
 function fetchJsonData(id) {
 
@@ -39,8 +19,8 @@ async function loadProducts() {
         return false;
     }
 
-    let data = JSON.parse(jsonData);
-    let productData = [];
+    data = JSON.parse(jsonData);
+    //let productData = [];
 
     for (const item of data) {
         await fetchJsonData(item.productId).then(product => {
@@ -48,13 +28,12 @@ async function loadProducts() {
         })
     };
 
-    showcart(productData, data);
+    showcart(data);
 }
 
 
 // cart 
-function showcart(productData, data) {
-    console.log(data)
+function showcart(data) {
     // Check if data exists in local storage
     if (productData.length > 0) {
         // Get the container element to display the data
@@ -65,8 +44,6 @@ function showcart(productData, data) {
         total.empty();
 
         // Iterate over the data array
-
-        console.log(productData)
 
         //genereta foreach for the productData array?
         var index = 0;
@@ -94,7 +71,7 @@ function showcart(productData, data) {
                                 <div style="width: 80px;">
                                     <p>${product.price}</p>
                                 </div>
-                                <button type="button" onclick="removeItem(${item.product.id})" class="close">x</button>
+                                <button type="button" onclick="removeItem(${product.id})" class="btn btn-danger btn-sm">X</button>
                             </div>
                         </div>  
                     </div>
@@ -113,10 +90,11 @@ function showcart(productData, data) {
 
 function calculateTotalAmount() {
     let jsonData = localStorage.getItem('cart');
+
     if (jsonData) {
         // Parse JSON data into an array
-        let data = JSON.parse(jsonData);
-
+        // let data = JSON.parse(jsonData);
+        let totalAmount = 0;
         data.forEach(item => {
             totalAmount += item.totalAmount;
         });
@@ -141,42 +119,92 @@ function removeItem(itemId) {
         // Update the JSON data in local storage
         localStorage.setItem('cart', JSON.stringify(updatedData));
     }
-}
-
-//confirm order
-function confirmOrder() {
-    console.log('Item removed from cart');
     location.reload();
 }
 
-$( document ).ready(function() {
-    //fetchJsonData();
-    showcart();
+function updateItem(itemId, quantity, index) {
+    // Retrieve JSON data from local storage
+    let jsonData = localStorage.getItem('cart');
+
+    if (jsonData) {
+        // Parse JSON data into an array
+        let data = JSON.parse(jsonData);
+
+        // Filter out the item that matches the given ID
+        let updatedData = data.filter(item => item.productId !== itemId);
+        console.log(updatedData);
+        updatedData.push({ productId: itemId, quantity: quantity, totalAmount: quantity * productData[index].price });
+        console.log(updatedData);
+
+        // Update the JSON data in local storage
+        localStorage.setItem('cart', JSON.stringify(updatedData));
+    }
+    location.reload();
+}
+
+
+$(document).ready(function () {
+    loadProducts();
     calculateTotalAmount();
 });
 
 
-// how can i make the POST request of the cart order?
+function confirmPurchase() {
+    
+    //window.location.href = "http://proyectoapps-001-site1.atempurl.com/Customer/Home/OrderConfirmation";
+    var index = 0;
 
-
-function ConfirmShopping() {
-    const url = 'https://example.com/api/cart/order';
-    const data = {
-        cartId: 123456,
-        shippingAddress: {
-            address1: '123 Main Street',
-            address2: 'Apt. 123',
-            city: 'Anytown',
-            state: 'CA',
-            zipCode: '12345'
+    //Validate stock of products in productData array and update the stock in the database if the purchase is confirmed
+    for (const product of productData) {
+       if (product.inStock === 0) {
+           alert("Error. There is no stock for the product " + product.name + "\nYour product has been removed from the cart");
+           removeItem(product.id);
+           calculateTotalAmount();
+           //location.reload();
+           return false;
+        } else if (product.inStock < data[index].quantity) {
+           alert("Error. There is not enough stock for the product " + product.name + "\nYour product has been updated to the available stock");
+           updateItem(product.id, product.inStock, index);
+           calculateTotalAmount();
+           //location.reload();
+           return false;
+        } else if (product.isActive === 0){
+           alert("Error. The product " + product.name + " is not available in this moment" + "\nYour product has been removed from the cart");
+           removeItem(product.id);
+           calculateTotalAmount();
+           //location.reload();
+           return false;
         }
-    };
+        index++;
+    }
 
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(data => console.log(data));
+    const productsData = data.map(item => ({
+        ProductId: item.productId,
+        Quantity: item.quantity
+      }));
 
+      const payload = {
+        ProductsData: productsData,
+        UserId: 1
+      };
+
+    console.log(data);
+    $.ajax({
+        url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/CreateOrder',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function(response) {
+          // Handle the response from the server if needed
+          console.log(response);
+        },
+        error: function(error) {
+          // Handle any errors that occur during the request
+          console.error(error);
+        }
+      });
+
+      localStorage.removeItem('cart');
+      location.reload();
+      alert("Your purchase has been confirmed");
 }

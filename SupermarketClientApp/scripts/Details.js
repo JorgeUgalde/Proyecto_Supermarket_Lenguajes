@@ -51,6 +51,7 @@ function addToCart() {
           // El producto ya está en el carrito
           cart[index].quantity = quantity;
           cart[index].totalAmount = totalAmount;
+          
       }
   }
 

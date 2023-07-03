@@ -1,5 +1,6 @@
 let productData = [];
 let data = null;
+let totalAmount = 0;
 
 function fetchJsonData(id) {
 
@@ -94,7 +95,7 @@ function calculateTotalAmount() {
     if (jsonData) {
         // Parse JSON data into an array
         // let data = JSON.parse(jsonData);
-        let totalAmount = 0;
+        
         data.forEach(item => {
             totalAmount += item.totalAmount;
         });
@@ -149,8 +150,7 @@ $(document).ready(function () {
 });
 
 
-function confirmPurchase() {
-
+function confirmPurchase() {    
     var userDataLS = JSON.parse(localStorage.getItem('userData'));
     if (userDataLS == null) {
         alert("Before confirm your order, please register yourself in the aplication ")
@@ -207,7 +207,7 @@ function confirmPurchase() {
             console.log(response);
         },
         error: function (error) {
-            
+
             console.error(error);
         }
     });
@@ -215,5 +215,56 @@ function confirmPurchase() {
     localStorage.removeItem('cart');
     alert("Your purchase has been confirmed");
     window.location.href = '../pages/Index.html';
+
+}
+
+
+function loadOrderData() {
+    if (productData.length > 0) {
+        let container = $('#confirm-order');
+        container.empty();
+        console.log("valido")
+
+         var index = 0;
+         let shoppingCart;
+
+    for (const product of productData) {
+
+        console.log(product.name)
+
+        shoppingCart = `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">                           
+                            <div class="ms-3">
+                                <h5>${product.name}</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+                            <div style="width: 50px;">
+                                <p>${data[index].quantity}</p>
+                            </div>
+                            <div style="width: 80px;">
+                                <p>${product.price.toLocaleString("es-CR", { style: "currency", currency: "CRC" })}</p>
+                            </div>
+                            <button type="button" onclick="removeItem(${product.id})" class="btn btn-danger btn-sm">X</button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        `;
+        container.append(shoppingCart);
+        index++;
+    }
+    
+    let amount = $('#Total-Amount');
+    amount.append(`<p>Total Amount: ${totalAmount} </p>`);
+
+    } else {
+        $('#ConfirmBTN').prop('hidden' , true);
+
+        $('#confirm-order').html('<p>No items int the cart</p>');
+    }
 
 }

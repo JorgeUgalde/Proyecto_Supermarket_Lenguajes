@@ -5,8 +5,8 @@ namespace SuperMarket.Models
 {
 	public class ApplicationUser : IdentityUser
 	{
-		[Key]
-		public int Id { get; set; }
+	
+		public int UserIdentification { get; set; }
 
 		[Required]
 		public string Name { get; set; }

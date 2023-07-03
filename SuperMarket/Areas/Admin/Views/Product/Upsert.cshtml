@@ -25,39 +25,6 @@
             </div>
         }
 
-       @* <div class="mb-3">
-            <label>Select Categories:</label>
-            @foreach (var category in Model.CategoryList)
-            {
-                var categoryId = category.Value;
-                var categoryName = category.Text;
-                <div class="form-check">
-                    <input type="checkbox" id="category_@categoryId" name="SelectedCategories" value="@categoryId" class="form-check-input" @(Model.SelectedCategories.Contains(Convert.ToInt32(categoryId)) ? "checked" : "") />
-                    <label class="form-check-label" for="category_@categoryId">@categoryName</label>
-                </div>
-            }
-        </div>*@
-
-       @* <div class="mb-3">
-            <label>Select Categories:</label>
-            @foreach (var category in Model.CategoryList)
-            {
-                <div class="form-check">
-                    <input type="checkbox" id="category_@category" name="SelectedCategories" value="@category" class="form-check-input" @(Model.CategoryList.Contains(category) ? "checked" : "") />
-                    <label class="form-check-label" for="category_@category"></label>
-                </div>
-            }
-        </div>*@
-
-@*
-        <div class="mb-3">
-            <label asp-for="Product.CategoryId"></label>
-            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
-                <option disabled selected>----Select Make----</option>
-            </select>
-            <span asp-validation-for="Product.CategoryId" class="text-primary"></span>
-        </div>*@
-
         <div class="mb-3">
             <label asp-for="Product.BarCode" class="p-0"></label>
             <input asp-for="Product.BarCode" type="text" class="form-control" />

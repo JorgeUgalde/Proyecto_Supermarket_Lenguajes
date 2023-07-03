@@ -83,12 +83,6 @@ function validateQuantity() {
 $(document).ready(function () {
 
   fetchJsonData();
-    // Obtener el objeto de producto almacenado en el local storage
-    // const productData = JSON.parse(localStorage.getItem('productData'));
-
-    // Crear el código HTML utilizando los datos del producto
-    // Crear el código HTML utilizando los datos del producto
-   
 
 });
 
@@ -108,7 +102,7 @@ function productDetails(productData){
         <div class="row">
           <div class="col-8 col-lg-8">
             <div class="row pl-2">
-              <h5 class="text-muted pb-2">Price: ${productData.price}</h5>
+              <h5 class="text-muted pb-2">Price: ${productData.price.toLocaleString("es-CR", { style: "currency", currency: "CRC" })}</h5>
             </div>
             <div class="row pl-2">
               <p class="text-secondary">${productData.name}</p>

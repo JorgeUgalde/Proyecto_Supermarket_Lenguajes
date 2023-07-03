@@ -5,6 +5,7 @@ using System.Diagnostics;
 using SuperMarket.Areas.Admin.Controllers;
 using SuperMarket.Models.ViewModels;
 using SuperMarket.Utilities;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace SuperMarket.Areas.Customer.Controllers
 {
@@ -16,10 +17,13 @@ namespace SuperMarket.Areas.Customer.Controllers
 
         private readonly IUnitOfWork _unitOfWork;
 
+
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+
+
         }
 
         public IActionResult Index()
@@ -131,9 +135,10 @@ namespace SuperMarket.Areas.Customer.Controllers
             // 1. Crear la orden
             Order order = new Order
             {
-                ApplicationUserId = orderData.UserId,
+                UserIdentification = orderData.UserId,
                 Status = OrderStatus.New
             };
+
 
             _unitOfWork.Order.Add(order);
             _unitOfWork.Save();
@@ -144,7 +149,11 @@ namespace SuperMarket.Areas.Customer.Controllers
             //// 3. Insertar los productos relacionados en la tabla intermedia
             foreach (Dictionary<string, int> productOrder in orderData.ProductsData.ToList())
             {
+                Product productFromDB = _unitOfWork.ProductRepository.Get(u => u.Id == productOrder["ProductId"]);
 
+                productFromDB.InStock -= productOrder["Quantity"];
+                _unitOfWork.ProductRepository.Update(productFromDB);
+                _unitOfWork.Save();
 
                 ProductOrder newProductOrder = new ProductOrder
                 {
@@ -160,58 +169,61 @@ namespace SuperMarket.Areas.Customer.Controllers
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Order created successfully." });
-        }    
-
-                 
-
-
-         
+        }
 
 
 
-        //[HttpPost]
-        //public IActionResult CreateOrder([FromBody] JObject orderDataJson)
-        //{
-        //    // Convertir el JSON a un objeto C#
-        //    OrderData orderData = orderDataJson.ToObject<OrderData>();
 
-        //    // Aquí puedes procesar los datos recibidos en el JSON y realizar cualquier operación necesaria
-        //    // Accede a los campos del objeto orderData y realiza las operaciones de inserción en la base de datos
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] ApplicationUser user)
+        {
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Error while Creating" });
+            }
 
-        //    // Ejemplo de código para insertar una nueva orden y los productos relacionados en la tabla intermedia
+            int userId = user.UserIdentification;
 
-        //    // 1. Crear la orden
-        //    Order order = new Order
-        //    {
-        //        UserId = orderData.UserId
-        //    };
+            Boolean userExists = false;
 
-        //    _unitOfWork.OrderRepository.Add(order);
-        //    _unitOfWork.Save();
+            if (userId == 0)
+            {
+                userId = LastUserId.Id + 1;
+                LastUserId.Id = userId;
 
-        //    // 2. Obtener el ID de la orden recién creada
-        //    int orderId = order.Id;
+            }
+            else
+            {
+                userExists = true;
+            }
 
-        //    // 3. Insertar los productos relacionados en la tabla intermedia
-        //    foreach (int productId in orderData.ProductIds)
-        //    {
-        //        OrderProduct orderProduct = new OrderProduct
-        //        {
-        //            OrderId = orderId,
-        //            ProductId = productId
-        //        };
+            // 1. Crear la orden
+            ApplicationUser newUser = new ApplicationUser
+            {
+                UserIdentification = userId,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                StreetAddress = user.StreetAddress
+            };
+            if (userExists)
+            {
+                ApplicationUser? userDB = _unitOfWork.ApplicationUser.Get(u => u.UserIdentification == userId);
+                userDB.Name = newUser.Name;
+                userDB.PhoneNumber = newUser.PhoneNumber;
+                userDB.Email = newUser.Email;
+                userDB.StreetAddress = newUser.StreetAddress;
 
-        //        _unitOfWork.OrderProductRepository.Add(orderProduct);
-        //    }
+                _unitOfWork.ApplicationUser.Update(userDB);
+            }
+            else
+            {
+                _unitOfWork.ApplicationUser.Add(newUser);
+            }
+            _unitOfWork.Save();
 
-        //    _unitOfWork.Save();
-
-        //    // Aquí puedes realizar cualquier otra acción necesaria, como redirigir a una página de éxito o devolver un mensaje JSON de confirmación
-
-        //    return Json(new { success = true, message = "Order created successfully." });
-        //}
-
-
+            return Json(new { success = true, message = "Order created successfully.", id = userId });
+        }
 
 
 

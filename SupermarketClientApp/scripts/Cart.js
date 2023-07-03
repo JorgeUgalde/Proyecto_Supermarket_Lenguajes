@@ -69,7 +69,7 @@ function showcart(data) {
                                     <p>${data[index].quantity}</p>
                                 </div>
                                 <div style="width: 80px;">
-                                    <p>${product.price}</p>
+                                    <p>${product.price.toLocaleString("es-CR", { style: "currency", currency: "CRC" })}</p>
                                 </div>
                                 <button type="button" onclick="removeItem(${product.id})" class="btn btn-danger btn-sm">X</button>
                             </div>
@@ -99,7 +99,7 @@ function calculateTotalAmount() {
             totalAmount += item.totalAmount;
         });
         const totalAmountElement = document.getElementById('totalAmount');
-        totalAmountElement.textContent = 'Total Amount: $' + totalAmount;
+        totalAmountElement.textContent = 'Total Amount: ₡' + totalAmount;
     }
 }
 
@@ -151,7 +151,6 @@ $(document).ready(function () {
 
 function confirmPurchase() {
     
-    //window.location.href = "http://proyectoapps-001-site1.atempurl.com/Customer/Home/OrderConfirmation";
     var index = 0;
 
     //Validate stock of products in productData array and update the stock in the database if the purchase is confirmed

@@ -1,5 +1,18 @@
 
+function validateUserInformation()
+{
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData == null) {
+        window.location.href = "../pages/UserInformation.html";
+        // Puedes utilizar window.location.href = 'index.html' para redirigir al usuario
+        return;
+    }
+}
+
+
 const isActive = 1;
+
+
 
 function fetchJsonData() {
     $.ajax({
@@ -26,7 +39,7 @@ function generateCards(data) {
                         <img src="${item.pictureUrl}" class="card-img-top" style="height:160px; width:286px" alt="">
                         <div class="card-body">
                             <p class="card-title h5 text-primary">${item.name}</p>
-                            <p class="card-title text-info">${item.price}</p>
+                            <p class="card-title text-info">${item.price.toLocaleString("es-CR", { style: "currency", currency: "CRC" })}</p>
                             <div class="d-flex justify-content-between align-items-center">
                             <a href="../pages/Details.html?id=${item.id}" class="btn btn-primary stretched-link">View more</a>
                             </div>
@@ -52,33 +65,6 @@ function generateCards(data) {
         </div>
             `;
 
-
-            // let listItem = $('<div class="card bg-dark text-white mb-3" style="max-width: 18rem;"></div>');
-            // listItem.addClass('mb-3'); // Add margin class
-
-            // let image = $('<img src="' + item.pictureUrl + '" class="card-img-top" style="height:140px;width:220px" alt="">');
-            // let cardBody = $('<div class="card-body"></div>');
-            // let cardTitle = $('<h5 class="card-title">' + item.name + '</h5>');
-            // let cardText = $('<p class="card-text">fuap</p>');
-            // let viewMoreLink = $('<a href="../pages/Details.html?id=' + item.id + '" class="btn btn-primary">View more</a>');
-
-            // // Store product data in local storage when the user clicks on the "View more" button
-            // // viewMoreLink.on('click', function() {
-            // //     localStorage.setItem('productData', JSON.stringify(item));
-            // // });
-
-            // // Responsive classes for mobile and larger screens
-            // image.addClass('img-mobile'); // Mobile: full width
-            // cardTitle.addClass('card-title-mobile'); // Mobile: below the image
-
-            // // Append elements to the card body
-            // cardBody.append(image);
-            // cardBody.append(cardTitle);
-            // cardBody.append(cardText);
-            // cardBody.append(viewMoreLink);
-
-            // listItem.append(cardBody);
-
             row.append(card);
         }
     });
@@ -96,6 +82,8 @@ function filterDataByProductName(data, searchTerm) {
 
 
 $(document).ready(function () {
+validateUserInformation();
+
     $('#searchBar').on('input', function () {
         var filterValue = $(this).val().toLowerCase();
 

@@ -7,12 +7,14 @@ namespace SuperMarket.Models
     [Keyless]
     public class ProductOrder
     {
-        [ForeignKey("Product")]
         public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
 
-        [ForeignKey("Order")]
         public int OrderId { get; set; }
+
+        [ForeignKey("OrderId")]
         public Order Order { get; set; }
 
         public int Quantity { get; set; }

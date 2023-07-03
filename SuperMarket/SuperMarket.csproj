@@ -32,6 +32,7 @@
   <ItemGroup>
     <Folder Include="Areas\Operator\Controllers\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Data\Migrations\" />
     <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 

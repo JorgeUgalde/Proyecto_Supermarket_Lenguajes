@@ -216,13 +216,15 @@ namespace SuperMarket.Areas.Customer.Controllers
                 userDB.StreetAddress = newUser.StreetAddress;
 
                 _unitOfWork.ApplicationUser.Update(userDB);
+                _unitOfWork.Save();
+
             }
             else
             {
                 _unitOfWork.ApplicationUser.Add(newUser);
-            }
-            _unitOfWork.Save();
+                _unitOfWork.Save();
 
+            }
             return Json(new { success = true, message = "Order created successfully.", id = userId });
         }
 

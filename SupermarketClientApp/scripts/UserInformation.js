@@ -17,7 +17,7 @@ function SaveInformation() {
             var userData = {
                 UserIdentification : 0,
                 Name: name,
-                PhoneNumber: phone,
+                PhoneNumber: phone + "",
                 Email: email,
                 StreetAddress: address
             };
@@ -25,7 +25,7 @@ function SaveInformation() {
             var userData = {
                 UserIdentification : userDataLS.UserIdentification,
                 Name: name,
-                PhoneNumber: phone,
+                PhoneNumber: phone + "",
                 Email: email,
                 StreetAddress: address
             };

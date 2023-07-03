@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SuperMarket.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class models : Migration
+    public partial class Modelos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

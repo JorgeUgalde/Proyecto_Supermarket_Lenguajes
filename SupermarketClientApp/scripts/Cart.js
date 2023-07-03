@@ -150,29 +150,36 @@ $(document).ready(function () {
 
 
 function confirmPurchase() {
-    
+
+    var userDataLS = JSON.parse(localStorage.getItem('userData'));
+    if (userDataLS == null) {
+        alert("Before confirm your order, please register yourself in the aplication ")
+        window.location.href = '../pages/UserInformation.html';
+
+    }
+
     var index = 0;
 
     //Validate stock of products in productData array and update the stock in the database if the purchase is confirmed
     for (const product of productData) {
-       if (product.inStock === 0) {
-           alert("Error. There is no stock for the product " + product.name + "\nYour product has been removed from the cart");
-           removeItem(product.id);
-           calculateTotalAmount();
-           //location.reload();
-           return false;
+        if (product.inStock === 0) {
+            alert("Error. There is no stock for the product " + product.name + "\nYour product has been removed from the cart");
+            removeItem(product.id);
+            calculateTotalAmount();
+            //location.reload();
+            return false;
         } else if (product.inStock < data[index].quantity) {
-           alert("Error. There is not enough stock for the product " + product.name + "\nYour product has been updated to the available stock");
-           updateItem(product.id, product.inStock, index);
-           calculateTotalAmount();
-           //location.reload();
-           return false;
-        } else if (product.isActive === 0){
-           alert("Error. The product " + product.name + " is not available in this moment" + "\nYour product has been removed from the cart");
-           removeItem(product.id);
-           calculateTotalAmount();
-           //location.reload();
-           return false;
+            alert("Error. There is not enough stock for the product " + product.name + "\nYour product has been updated to the available stock");
+            updateItem(product.id, product.inStock, index);
+            calculateTotalAmount();
+            //location.reload();
+            return false;
+        } else if (product.isActive === 0) {
+            alert("Error. The product " + product.name + " is not available in this moment" + "\nYour product has been removed from the cart");
+            removeItem(product.id);
+            calculateTotalAmount();
+            //location.reload();
+            return false;
         }
         index++;
     }
@@ -182,12 +189,12 @@ function confirmPurchase() {
     const productsData = data.map(item => ({
         ProductId: item.productId,
         Quantity: item.quantity
-      }));
+    }));
 
-      const payload = {
+    const payload = {
         ProductsData: productsData,
         UserId: userData.UserIdentification
-      };
+    };
 
     console.log(data);
     $.ajax({
@@ -195,17 +202,18 @@ function confirmPurchase() {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(payload),
-        success: function(response) {
-          // Handle the response from the server if needed
-          console.log(response);
+        success: function (response) {
+            // Handle the response from the server if needed
+            console.log(response);
         },
-        error: function(error) {
-          // Handle any errors that occur during the request
-          console.error(error);
+        error: function (error) {
+            
+            console.error(error);
         }
-      });
+    });
 
-      localStorage.removeItem('cart');
-      location.reload();
-      alert("Your purchase has been confirmed");
+    localStorage.removeItem('cart');
+    alert("Your purchase has been confirmed");
+    window.location.href = '../pages/Index.html';
+
 }

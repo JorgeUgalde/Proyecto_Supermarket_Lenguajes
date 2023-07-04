@@ -190,7 +190,6 @@ namespace SuperMarket.Areas.Customer.Controllers
             {
                 userId = LastUserId.Id + 1;
                 LastUserId.Id = userId;
-
             }
             else
             {

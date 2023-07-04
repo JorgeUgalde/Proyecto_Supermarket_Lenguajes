@@ -32,26 +32,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row pt-4">
-            <div class="container py-14 py-md-16">
-                <div class="row">
-                    <div class="col-xl-10 mx-auto">
-                        <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://images.unsplash.com/photo-1633259584604-afdc243122ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');">
-                            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                                <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">User information</h2>
-                               Name:  <p>@Model.Order.ApplicationUser.Name</p>
-                               Email:  <p>@Model.Order.ApplicationUser.Email</p>
-                               Phone Number:  <p>@Model.Order.ApplicationUser.PhoneNumber</p>
-                               Address:  <p>@Model.Order.ApplicationUser.StreetAddress</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <table id="tblData" class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
@@ -86,6 +66,28 @@
             Total Amount: @Model.Order.ProductOrders.ToList().Sum(x => x.Quantity * x.Product.Price).ToString("C", CultureInfo.GetCultureInfo("es-cr"))
         </h5>
     </div>
+
+        <div class="row pt-4">
+            <div class="container py-14 py-md-16">
+                <div class="row">
+                    <div class="col-xl-10 mx-auto">
+                        <div class="row pb-2">
+                            <h2 class="text-center">User information</h2>
+                        </div>
+                        <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
+                            <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                                <h2 class="pt-5 mb-4 display-6 lh-1 fw-bold text-center">@Model.Order.ApplicationUser.Name</h2>
+                                <div>
+                                <p class="text-center"><strong>Email:</strong> @Model.Order.ApplicationUser.Email</p>
+                                <p class="text-center"><strong>Phone Number:</strong> @Model.Order.ApplicationUser.PhoneNumber</p>
+                                <p class="text-center"><strong>Street Address:</strong> @Model.Order.ApplicationUser.StreetAddress</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <script>

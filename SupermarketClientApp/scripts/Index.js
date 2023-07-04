@@ -73,9 +73,8 @@ function filterDataByProductCategories(data, searchTerm) {
 
 
 $(document).ready(function () {
-
-validateUserInformation();
-
+    
+    validateUserInformation();
     $('#searchBar').on('input', function () {
         var filterValue = $(this).val().toLowerCase();
 

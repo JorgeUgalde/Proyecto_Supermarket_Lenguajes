@@ -45,7 +45,7 @@ function Delete(_id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            var _url = "https://localhost:7050/Admin/Category/Delete/" + _id;
+            var _url = "/Admin/Category/Delete/" + _id;
             $.ajax({
                 url: _url,
                 type: "DELETE",

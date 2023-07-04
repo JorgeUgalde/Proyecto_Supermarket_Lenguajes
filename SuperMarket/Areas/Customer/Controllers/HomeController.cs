@@ -27,7 +27,14 @@ namespace SuperMarket.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            SummaryVM summaryVM = new SummaryVM()
+            {
+                AllProducts = _unitOfWork.ProductRepository.GetAll(),
+                AllCategories = _unitOfWork.Category.GetAll(),
+                AllOrders = _unitOfWork.Order.GetAll(),
+                Store = _unitOfWork.Store.Get(x => x.Id == SuperMarketState.SuperMarketId)
+        };
+            return View(summaryVM);
         }
 
         public IActionResult Privacy()

@@ -1,21 +1,83 @@
-﻿@using System.Globalization;
-@using SuperMarket.Models;
-@model IEnumerable<Product>
+﻿@using SuperMarket.Utilities;
+@model SummaryVM
 
 
-
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    
-    <div>
-        <h1> Welcome to Pepe's Supermarket'</h1>
-
-
+<div class="row pt-4">
+    <div class="container py-14 py-md-16">
+        <div class="row">
+            <div class="col-xl-10 mx-auto">
+                <div class="row pb-2">
+                    <h2 class="text-center">General information</h2>
+                </div>
+                <div class="card image-wrapper bg-full bg-overlay" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mb-4 display-6 lh-1 fw-bold text-center">Total products in the store:</h2>
+                        <div>
+                            <h4 class="text-center">@Model.AllProducts.ToList().Count</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-</body>
-</html>
+<div class="row pt-4 mt-4">
+    <div class="container py-14 py-md-16">
+        <div class="row">
+            <div class="col-xl-10 mx-auto">
+                <div class="row pb-2">
+					<h2 class="text-center"></h2>
+                </div>
+                <div class="card image-wrapper bg-full bg-overlay" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mb-4 display-6 lh-1 fw-bold text-center">Total categories in the store:</h2>
+                        <div>
+                            <h4 class="text-center">@Model.AllCategories.ToList().Count</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="row pt-4 mt-4">
+    <div class="container py-14 py-md-16">
+        <div class="row">
+            <div class="col-xl-10 mx-auto">
+                <div class="row pb-2">
+                    <h2 class="text-center"></h2>
+                </div>
+                <div class="card image-wrapper bg-full bg-overlay" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mb-4 display-6 lh-1 fw-bold text-center">Total orders in the store:</h2>
+                        <div>
+                            <h4 class="text-center">@Model.AllOrders.ToList().Count</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row pt-4 mt-4">
+    <div class="container py-14 py-md-16">
+        <div class="row">
+            <div class="col-xl-10 mx-auto">
+                <div class="row pb-2">
+                    <h2 class="text-center"></h2>
+                </div>
+                <div class="card image-wrapper bg-full bg-overlay" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                        <h2 class="pt-5 mb-4 display-6 lh-1 fw-bold text-center">State of Pepes Supermarket:</h2>
+                        <div>
+                            <h4 class="text-center">The supermarket is currently @(Model.Store.IsOpen == 0 ? "closed" : "open")</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

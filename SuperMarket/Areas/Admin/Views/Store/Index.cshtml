@@ -6,19 +6,27 @@
             <div class="row">
                 <div class="col-xl-10 mx-auto">
                     <div class="row pb-2">
-                        <h2 class="text-primary">Supermarket state</h2>
+                        <h2 class="text-center">Supermarket state</h2>
                     </div>
-                    <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://images.unsplash.com/photo-1633259584604-afdc243122ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');">
+                    <div class="card image-wrapper bg-full bg-image bg-overlay bg-overlay-400" style="background-image: url('https://img.freepik.com/foto-gratis/pared-textura-hormigon-azul-marino-solido_53876-124584.jpg');">
                         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h2>
+                            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-center">The supermarket is currently @(Model.IsOpen == 0 ? "closed" : "open")</h2>
                             @if (Model.IsOpen == 0)
                             {
-                                <button class="btn btn-lg btn-primary" type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
+                                <button class="btn btn-lg btn-dark" type="button" onclick="location.href='@Url.Action("OpenSuperMarket", "Store")'">Open Supermarket</button>
                             }
                             else
                             {
-                                <button class="btn btn-lg btn-primary" type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
+                                <button class="btn btn-lg btn-dark" type="button" onclick="location.href='@Url.Action("CloseSuperMarket", "Store")'">Close Supermarket</button>
                             }
+                        </div>
+                    </div>
+
+                    <div class="card border-warning mt-5 mb-3 style="max-width: 25rem;">
+                        <div class="card-header">About the supermarket state</div>
+                        <div class="card-body">
+                            <h5 class="card-title">Take into consideration...</h5>
+                            <p class="card-text">The supermarket state defines if the store is open or closed. Making the supermarket turn into a closed state will prevent application users from making orders.</p>
                         </div>
                     </div>
                 </div>

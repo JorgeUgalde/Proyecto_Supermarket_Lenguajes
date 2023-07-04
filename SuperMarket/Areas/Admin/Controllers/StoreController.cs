@@ -80,11 +80,6 @@ namespace SuperMarket.Areas.Admin.Controllers
 
             if (isOpenState == false)
             {
-                // SuperMarket is closed, redirect to the "SuperMarketClosed" view in Customer/Views/Shared
-                //context.Result = new ViewResult
-                //{
-                //    ViewName = "SuperMarketClosed"
-                //};
                 context.Result = new JsonResult(403);
             }
 

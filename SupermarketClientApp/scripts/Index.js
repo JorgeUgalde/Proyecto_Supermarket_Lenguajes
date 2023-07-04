@@ -3,7 +3,6 @@ function validateUserInformation() {
     var userData = JSON.parse(localStorage.getItem('userData'));
     if (userData == null) {
         window.location.href = "./pages/UserInformation.html";
-        // Puedes utilizar window.location.href = 'index.html' para redirigir al usuario
         return;
     }
 }

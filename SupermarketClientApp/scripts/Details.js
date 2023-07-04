@@ -1,7 +1,7 @@
 let productData;
 
 function fetchJsonData() {
-  //Optener el id de la URL
+
   const urlParams = new URLSearchParams(window.location.search);
   id = urlParams.get('id');
 
@@ -21,8 +21,6 @@ function fetchJsonData() {
 
 
 function addToCart() {
-  // Obtener el objeto de producto almacenado en el local storage
-  // const productData = JSON.parse(localStorage.getItem('productData'));
 
   var quantity = document.getElementById("quantity").value;
   var totalAmount = productData.price * quantity;

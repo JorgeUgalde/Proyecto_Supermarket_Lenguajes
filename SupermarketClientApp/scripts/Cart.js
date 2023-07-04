@@ -32,8 +32,6 @@ async function loadProducts() {
     showcart(data);
 }
 
-
-// cart 
 function showcart(data) {
     // Check if data exists in local storage
     if (productData.length > 0) {
@@ -44,9 +42,6 @@ function showcart(data) {
         let total = $('.total-amount');
         total.empty();
 
-        // Iterate over the data array
-
-        //genereta foreach for the productData array?
         var index = 0;
 
         for (const product of productData) {
@@ -92,10 +87,7 @@ function showcart(data) {
 function calculateTotalAmount() {
     let jsonData = localStorage.getItem('cart');
 
-    if (jsonData) {
-        // Parse JSON data into an array
-        // let data = JSON.parse(jsonData);
-        
+    if (jsonData) {        
         data.forEach(item => {
             totalAmount += item.totalAmount;
         });
@@ -133,9 +125,7 @@ function updateItem(itemId, quantity, index) {
 
         // Filter out the item that matches the given ID
         let updatedData = data.filter(item => item.productId !== itemId);
-        console.log(updatedData);
         updatedData.push({ productId: itemId, quantity: quantity, totalAmount: quantity * productData[index].price });
-        console.log(updatedData);
 
         // Update the JSON data in local storage
         localStorage.setItem('cart', JSON.stringify(updatedData));
@@ -183,25 +173,21 @@ function confirmPurchase() {
 
     var index = 0;
 
-    //Validate stock of products in productData array and update the stock in the database if the purchase is confirmed
     for (const product of productData) {
         if (product.inStock === 0) {
             alert("Error. There is no stock for the product " + product.name + "\nYour product has been removed from the cart");
             removeItem(product.id);
             calculateTotalAmount();
-            //location.reload();
             return false;
         } else if (product.inStock < data[index].quantity) {
             alert("Error. There is not enough stock for the product " + product.name + "\nYour product has been updated to the available stock");
             updateItem(product.id, product.inStock, index);
             calculateTotalAmount();
-            //location.reload();
             return false;
         } else if (product.isActive === 0) {
             alert("Error. The product " + product.name + " is not available in this moment" + "\nYour product has been removed from the cart");
             removeItem(product.id);
             calculateTotalAmount();
-            //location.reload();
             return false;
         }
         index++;
@@ -219,7 +205,6 @@ function confirmPurchase() {
         UserId: userData.UserIdentification
     };
 
-    console.log(data);
     $.ajax({
         url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/CreateOrder',
         type: 'POST',
@@ -228,7 +213,6 @@ function confirmPurchase() {
         success: function (response) {
             // Handle the response from the server if needed
             if (response === 403) {
-                console.log(response);
                 // Redirect the user to the "StoreClosed" page
                 window.location.href = '../pages/ClosedSupermarket.html';
             } else {
@@ -239,9 +223,7 @@ function confirmPurchase() {
         },
         error: function (response) {
             // Handle the error from the server if needed
-            console.log(response);
             alert("Error. Your purchase has not been confirmed");
-            //window.location.href = '../pages/Index.html';
         }
     });
 
@@ -252,14 +234,11 @@ function loadOrderData() {
     if (productData.length > 0) {
         let container = $('#confirm-order');
         container.empty();
-        console.log("valido")
 
          var index = 0;
          let shoppingCart;
 
     for (const product of productData) {
-
-        console.log(product.name)
 
         shoppingCart = `
             <div class="card mb-3">

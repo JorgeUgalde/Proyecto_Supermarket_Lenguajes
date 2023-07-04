@@ -55,7 +55,6 @@ function verifyLS() {
 }
 
 function saveUserOnBD(userData) {
-    console.log(userData);
     $.ajax({
         url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/CreateUser',
         type: 'POST',
@@ -65,7 +64,6 @@ function saveUserOnBD(userData) {
             alert("Added succesfully");
             user = JSON.parse(userData);
             user.UserIdentification = response.id;
-            console.log(user);
             localStorage.setItem('userData', JSON.stringify(user));
             window.location.href = '../Index.html';
         },

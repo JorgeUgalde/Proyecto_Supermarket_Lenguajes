@@ -12,18 +12,23 @@
             <h2 class="text-primary">@(Model.Product.Id == 0 ? "Create" : "Update") Product</h2>
         </div>
 
+        <div class="mb-3">
+            <label class="p-0">Categories</label>
+            <div class="mt-3 mb-3">
+                @foreach (var category in Model.CategoryList)
+                {
+                    var categoryId = category.Value;
+                    var categoryName = category.Text;
 
-        @foreach (var category in Model.CategoryList)
-        {
-            var categoryId = category.Value;
-            var categoryName = category.Text;
-   
-            bool isSelected = Model.SelectedCategories != null && Model.SelectedCategories.Contains(Convert.ToInt32(categoryId));
-            <div class="form-check">
-                <input type="checkbox" id="category_@categoryId" name="selectedCategories" value="@categoryId" class="form-check-input" @(isSelected ? "checked" : "") />
-                <label class="form-check-label" for="category_@categoryId">@categoryName</label>
+                    bool isSelected = Model.SelectedCategories != null && Model.SelectedCategories.Contains(Convert.ToInt32(categoryId));
+
+                    <div class="form-check">
+                        <input type="checkbox" id="category_@categoryId" name="selectedCategories" value="@categoryId" class="form-check-input" @(isSelected ? "checked" : "") />
+                        <label class="form-check-label" for="category_@categoryId">@categoryName</label>
+                    </div>
+                }
             </div>
-        }
+        </div>
 
         <div class="mb-3">
             <label asp-for="Product.BarCode" class="p-0"></label>
@@ -58,7 +63,10 @@
 
         <div class="mb-3">
             <label asp-for="Product.IsActive" class="p-0"></label>
-            <input asp-for="Product.IsActive" type="text" class="form-control" />
+            <select asp-for="Product.IsActive" class="form-select">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
             <span asp-validation-for="Product.IsActive" class="text-danger"></span>
         </div>
 
@@ -74,16 +82,3 @@
     </div>
 
 </form>
-
-@section Scripts{
-
-    <script src="https://cdn.tiny.cloud/1/15ppzj17t7o6klw3o2ryc501mp6jdbk1079w8wuxbsupg3u3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        });
-    </script>
-}

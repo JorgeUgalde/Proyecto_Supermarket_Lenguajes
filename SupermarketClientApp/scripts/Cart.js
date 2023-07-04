@@ -234,7 +234,7 @@ function confirmPurchase() {
             } else {
             localStorage.removeItem('cart');
             alert("Your purchase has been confirmed");
-            window.location.href = '../pages/Index.html';
+            window.location.href = '../Index.html';
             }
         },
         error: function (response) {

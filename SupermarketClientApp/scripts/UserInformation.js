@@ -15,15 +15,15 @@ function SaveInformation() {
         var userDataLS = JSON.parse(localStorage.getItem('userData'));
         if (userDataLS == null) {
             var userData = {
-                UserIdentification : 0,
+                UserIdentification: 0,
                 Name: name,
                 PhoneNumber: phone + "",
                 Email: email,
                 StreetAddress: address
             };
-        }else {
+        } else {
             var userData = {
-                UserIdentification : userDataLS.UserIdentification,
+                UserIdentification: userDataLS.UserIdentification,
                 Name: name,
                 PhoneNumber: phone + "",
                 Email: email,
@@ -32,17 +32,17 @@ function SaveInformation() {
         }
 
         // Crear un objeto con los datos del usuario
-       
-        saveUserOnBD(JSON.stringify(userData));    
+
+        saveUserOnBD(JSON.stringify(userData));
     });
 }
 
 $(document).ready(function () {
 
-   verifyLS();
+    verifyLS();
 });
 
-function verifyLS(){
+function verifyLS() {
     var userDataLS = JSON.parse(localStorage.getItem('userData'));
     if (userDataLS != null) {
 
@@ -50,14 +50,12 @@ function verifyLS(){
         document.getElementById('name').value = userDataLS.Name;
         document.getElementById('phone').value = userDataLS.PhoneNumber;
         document.getElementById('email').value = userDataLS.Email;
-        document.getElementById('address').value = userDataLS.StreetAddress;    
+        document.getElementById('address').value = userDataLS.StreetAddress;
     }
 }
 
 function saveUserOnBD(userData) {
-
-console.log(userData);
-
+    console.log(userData);
     $.ajax({
         url: 'http://proyectoapps-001-site1.atempurl.com/Customer/Home/CreateUser',
         type: 'POST',
@@ -68,13 +66,8 @@ console.log(userData);
             user = JSON.parse(userData);
             user.UserIdentification = response.id;
             console.log(user);
-
             localStorage.setItem('userData', JSON.stringify(user));
-
-
-           window.location.href = '../pages/Index.html';
-
-
+            window.location.href = '../Index.html';
         },
         error: function (error) {
             // Handle any errors that occur during the request

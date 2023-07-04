@@ -58,7 +58,7 @@ function addToCart() {
   // Guardar el carrito actualizado en el Local Storage
   localStorage.setItem("cart", JSON.stringify(cart));
 alert(productData.name + " added to cart. " + quantity + " items");
-  window.location.href = "../Pages/index.html";
+  window.location.href = "../index.html";
 }
 
 
@@ -120,7 +120,7 @@ function productDetails(productData){
     <div class="card-footer">
       <div class="row">
         <div class="col-12 col-md-6 pb-1">
-          <a class="btn btn-success form-control" style="height:50px;" href="./Index.html">Back to Home</a>
+          <a class="btn btn-success form-control" style="height:50px;" href="../Index.html">Back to Home</a>
         </div>
         <div class="col-12 col-md-6 pb-1">
           <button class="btn btn-primary" style="height:50px; width:100%;" onclick="addToCart()">Add to Cart</button>

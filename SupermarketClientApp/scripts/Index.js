@@ -2,13 +2,11 @@
 function validateUserInformation() {
     var userData = JSON.parse(localStorage.getItem('userData'));
     if (userData == null) {
-        window.location.href = "../pages/UserInformation.html";
+        window.location.href = "./pages/UserInformation.html";
         // Puedes utilizar window.location.href = 'index.html' para redirigir al usuario
         return;
     }
 }
-
-
 const isActive = 1;
 
 
@@ -43,7 +41,7 @@ function generateCards(data) {
             }
             let cardText = $('<p class="card-text">' + categoryList + '</p>');
             // let viewMoreLink = $('<a href="../pages/Details.html?id=' + item.id + '" class="btn btn-primary">View more</a>');
-            let viewMoreLink = $(`<a href="../pages/Details.html?id=${item.id}" class="btn btn-primary stretched-link">View more</a>`);
+            let viewMoreLink = $(`<a href="./pages/Details.html?id=${item.id}" class="btn btn-primary stretched-link">View more</a>`);
             
             // Responsive classes for mobile and larger screens
             image.addClass('img-mobile'); // Mobile: full width
@@ -75,6 +73,9 @@ function filterDataByProductCategories(data, searchTerm) {
 
 
 $(document).ready(function () {
+
+validateUserInformation();
+
     $('#searchBar').on('input', function () {
         var filterValue = $(this).val().toLowerCase();
 
